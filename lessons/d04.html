@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D4 · 表格与表单：用 table/tr/td 做数据表，用 form/input/label 做出一个能填的报名表。">
+<title>D4 · 表格与表单 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d04.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#table">表格 table / tr / th / td</a></li>
+      <li><a href="#form">表单 form 的作用</a></li>
+      <li><a href="#input-types">input 的常用 type</a></li>
+      <li><a href="#label">label 与 input 绑定</a></li>
+      <li><a href="#select-textarea">下拉框与多行文本</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 1 周 · 环境 + HTML 入门</span>
+        <span class="crumb-sep">/</span>
+        <span>D4</span>
+      </div>
+      <h1>表格与表单</h1>
+      <p class="lede">
+        今天做两件「有结构」的事：用表格展示数据，用表单收集用户输入。
+        表单是前端和后端握手的地方，也是面试高频考点。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 120 分钟</span>
+        <span class="fact">📄 产出 form.html</span>
+        <span class="fact">🎯 难度 ★★☆</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="table">一、表格 table / tr / th / td</h2>
+      <p>表格是「行 × 列」的结构，四个标签分工明确：</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>标签</th><th>含义</th><th>记忆法</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>table</code></td><td>整张表</td><td>table = 桌子</td></tr>
+            <tr><td><code>tr</code></td><td>一行（table row）</td><td>row = 行</td></tr>
+            <tr><td><code>th</code></td><td>表头单元格（table header）</td><td>字会加粗居中</td></tr>
+            <tr><td><code>td</code></td><td>普通单元格（table data）</td><td>装数据</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- 一行里放几个 td，这一行就有几列 -->
+<table>
+  <thead>
+    <tr>
+      <th>姓名</th>
+      <th>年龄</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>小明</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table></code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>重要观念：</strong>表格只用来展示<strong>数据</strong>。
+        用 table 做页面布局是二十年前的老做法，现在一律用 CSS（Flex / Grid）。
+        面试问到「能不能用 table 布局」要明确说不能，并说出理由：语义错误、响应式困难、代码臃肿。
+      </div>
+
+      <h2 id="form">二、表单 form 的作用</h2>
+      <p>
+        <code>form</code> 是收集用户输入的区域。用户填完点提交，
+        浏览器会把里面所有控件的值打包，发给 <code>action</code> 指定的地址。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- action 是数据要发去的地址，method 是发送方式 -->
+<!-- 现在只写前端，action 可以先空着，重点是结构和控件 -->
+<form action="" method="post">
+  ...
+</form></code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>面试点：</strong><code>method="get"</code> 参数拼在 URL 后面，适合查询；
+        <code>method="post"</code> 参数放在请求体里，适合提交敏感数据。默认是 get。
+      </div>
+
+      <h2 id="input-types">三、input 的常用 type</h2>
+      <p><code>input</code> 是单标签，靠 <code>type</code> 属性变身成不同的控件：</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>type</th><th>长什么样</th><th>用途</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>text</code></td><td>单行输入框</td><td>姓名、昵称</td></tr>
+            <tr><td><code>email</code></td><td>单行输入框</td><td>邮箱，提交时会校验格式</td></tr>
+            <tr><td><code>password</code></td><td>输入显示成圆点</td><td>密码</td></tr>
+            <tr><td><code>checkbox</code></td><td>方框，可多选</td><td>兴趣爱好、同意条款</td></tr>
+            <tr><td><code>radio</code></td><td>圆点，同名单选</td><td>性别、学历</td></tr>
+            <tr><td><code>submit</code></td><td>按钮</td><td>提交表单</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- placeholder 是输入框里的灰色提示文字 -->
+<input type="text" placeholder="请输入姓名">
+
+<!-- email 类型会在提交时自动校验格式 -->
+<input type="email" placeholder="you@example.com">
+
+<!-- required 表示必填，不填不让提交 -->
+<input type="password" placeholder="密码" required></code></pre>
+      </div>
+
+      <h2 id="label">四、label 与 input 绑定</h2>
+      <p>
+        <code>label</code> 的 <code>for</code> 属性写 <code>input</code> 的 <code>id</code>，
+        两者就绑定了。好处是：<strong>点文字也能聚焦到输入框</strong>，手机上好点很多。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- label 的 for 必须等于 input 的 id，两者才能绑定 -->
+<label for="username">姓名</label>
+<input type="text" id="username" name="username"></code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>无障碍要求：</strong>每个输入框都应该有对应的 label。
+        读屏软件靠它念出「这个框是填什么的」。只写 placeholder 不算，因为输入内容后提示就消失了。
+      </div>
+
+      <h2 id="select-textarea">五、下拉框 select 与多行文本 textarea</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- select 里放 option，每个 option 是一个选项 -->
+<label for="city">城市</label>
+<select id="city" name="city">
+  <option value="bj">北京</option>
+  <option value="sh">上海</option>
+  <option value="gz">广州</option>
+</select>
+
+<!-- textarea 是多行输入，有闭合标签，内容写在中间 -->
+<label for="msg">留言</label>
+<textarea id="msg" name="msg" rows="4"></textarea>
+
+<!-- button 写 type="submit" 才会触发表单提交 -->
+<button type="submit">提交报名</button></code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>完整报名表结构：</strong>form 里每一组「label + 控件」用 <code>div</code> 包一层，
+        方便以后加样式。这是最标准的写法。
+      </div>
+
+      <h2 id="mindmap">六、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <span class="mindmap-title">D4 · 表格与表单</span>
+          <span class="mindmap-sub">一张图记住今天所有知识点</span>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">D4 表格与表单 思维导图</title>
+            <desc id="mmDesc">中心是表格与表单，五个分支：表格结构、form、input 类型、label 绑定、下拉与多行。</desc>
+
+            <path class="mm-link" d="M300 235 C 340 235, 340 66, 380 66" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 156, 380 156" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 246, 380 246" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 336, 380 336" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 426, 380 426" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">表格与表单</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="42" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="71" text-anchor="middle">表格结构</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="30" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="58">table → tr → td</text>
+              <text class="mm-text leaf" x="590" y="82">th 是表头，只展示数据</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="132" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="161" text-anchor="middle">form</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="120" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="148">收集用户输入</text>
+              <text class="mm-text leaf" x="590" y="172">action 决定发去哪</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="222" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="251" text-anchor="middle">input 类型</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="210" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="238">text / email / password</text>
+              <text class="mm-text leaf" x="590" y="262">checkbox / radio / submit</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="312" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="341" text-anchor="middle">label 绑定</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="300" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="328">for 等于 input 的 id</text>
+              <text class="mm-text leaf" x="590" y="352">点文字也能聚焦输入框</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="402" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="431" text-anchor="middle">下拉与多行</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="390" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="418">select + option</text>
+              <text class="mm-text leaf" x="590" y="442">textarea 有闭合标签</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">七、练习题</h2>
+      <section class="practice" id="practice">
+        <div class="practice-head">
+          <div>
+            <h3>自测 · 共 6 题</h3>
+            <p>点选项立刻判分，答错会告诉你为什么。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">表格里表示「一行」的是哪个标签？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>td</button>
+            <button class="opt" data-correct="true" data-why="tr = table row，表示一行；td 是这一行里的一个单元格。"><span class="opt-key"><span>B</span></span>tr</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>th</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>table</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">现在做页面布局应该用什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>table</button>
+            <button class="opt" data-correct="true" data-why="表格只用于展示数据。布局用 CSS 的 Flex 或 Grid，语义正确、响应式好做、代码更简洁。"><span class="opt-key"><span>B</span></span>CSS 的 Flex / Grid</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>br 换行</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>form</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">label 的 for 属性应该等于什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>input 的 name</button>
+            <button class="opt" data-correct="true" data-why="for 要等于对应 input 的 id，两者才能绑定，点文字才能聚焦到输入框。"><span class="opt-key"><span>B</span></span>input 的 id</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>input 的 type</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>随便写</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">密码输入框应该用哪个 type？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>text</button>
+            <button class="opt" data-correct="true" data-why="type="password" 会把输入内容显示成圆点，防止旁人看到。"><span class="opt-key"><span>B</span></span>password</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>hidden</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>secret</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">下面哪个是单标签？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>textarea</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>select</button>
+            <button class="opt" data-correct="true" data-why="input 是单标签，没有 </input>。textarea 和 select 都有闭合标签。"><span class="opt-key"><span>C</span></span>input</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>form</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">method="get" 和 method="post" 最大的区别是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="get 把参数拼在 URL 后面，能被看到和收藏；post 把参数放在请求体里，更适合提交敏感数据。"><span class="opt-key"><span>A</span></span>get 参数在 URL 上，post 在请求体里</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>get 更快，post 更慢</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>get 只能传数字</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>没有区别</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">八、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">面试官问：「为什么不能用 table 做页面布局？」请用 30 秒讲清楚。</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              三个理由：一，语义错误，table 是展示数据的，用它布局会让读屏软件把整页当成一张表；
+              二，响应式困难，表格结构僵硬，手机上很难重排；
+              三，代码臃肿，嵌套层级深，维护成本高。
+              现在布局一律用 CSS 的 Flex 或 Grid。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">九、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D4: 表格 + 表单 + label 绑定"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 有一个 3 行以上的表格</label></li>
+          <li><label><input type="checkbox"> 报名表里有 text / email / checkbox 三种控件</label></li>
+          <li><label><input type="checkbox"> 每个输入框都有对应的 label</label></li>
+          <li><label><input type="checkbox"> 点 label 文字能聚焦到输入框</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d03.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D3 · 列表、链接、图片</span>
+      </a>
+      <a class="next" href="d05.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D5 · 语义化标签</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D4 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

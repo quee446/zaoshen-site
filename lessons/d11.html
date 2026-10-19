@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D11 · 显示模式与 Flex 入门：display 四种值、flex 容器、Flex 三开关，做出横向导航栏。">
+<title>D11 · 显示模式与 Flex 入门 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d11.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#display-values">display 四种值</a></li>
+      <li><a href="#flex-container">flex 容器是什么</a></li>
+      <li><a href="#flex-three">Flex 三开关</a></li>
+      <li><a href="#text-align-vs-align-items">text-align vs align-items</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 2 周 · CSS 基础</span>
+        <span class="crumb-sep">/</span>
+        <span>D11</span>
+      </div>
+      <h1>显示模式与 Flex 入门</h1>
+      <p class="lede">
+        为什么 div 总是独占一行，span 却能并排？答案在 display。
+        今天用 Flex 做出人生第一个横向导航栏。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 120 分钟</span>
+        <span class="fact">📄 产出 nav.html</span>
+        <span class="fact">🎯 难度 ★★★</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="display-values">一、display 的四种值</h2>
+      <p>
+        <code>display</code> 决定一个元素「怎么占位置」。四种值覆盖了 90% 的场景。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>值</th><th>独占一行</th><th>能设宽高</th><th>典型标签</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>block</code></td><td>✅ 是</td><td>✅ 能</td><td>div、p、h1</td></tr>
+            <tr><td><code>inline</code></td><td>❌ 否</td><td>❌ 不能</td><td>span、a</td></tr>
+            <tr><td><code>inline-block</code></td><td>❌ 否</td><td>✅ 能</td><td>按钮、标签</td></tr>
+            <tr><td><code>none</code></td><td>—</td><td>—</td><td>直接不显示，也不占位置</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <strong>inline 元素设 width / height 是无效的。</strong>
+        这是新手最常踩的坑：给 <code><a></code> 写 <code>width: 100px</code> 没反应，
+        因为 a 默认是 inline。改成 <code>inline-block</code> 或 <code>block</code> 才生效。
+      </div>
+      <div class="callout tip">
+        <strong>display: none 和 visibility: hidden 的区别：</strong>
+        none 是彻底消失、位置也不留；hidden 是看不见但位置还占着。
+      </div>
+
+      <h2 id="flex-container">二、flex 容器 = 写了 display: flex 的盒子</h2>
+      <p>
+        给<strong>父元素</strong>写 <code>display: flex</code>，它就成了 flex 容器，
+        它的<strong>直接子元素</strong>会自动横排。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><nav class="nav">          <!-- 父元素：flex 容器 -->
+  <span class="logo">Z</span>  <!-- 子元素：自动横排 -->
+  <ul class="links">...</ul>   <!-- 子元素 -->
+</nav></code></pre>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>.nav {
+  display: flex;  /* 这一行让子元素横排 */
+}</code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>只影响直接子元素。</strong>
+        孙子辈（子元素的子元素）不受影响。想让孙子也横排，得给那一层也写 display: flex。
+      </div>
+
+      <h2 id="flex-three">三、Flex 三开关</h2>
+      <p>
+        记住三个属性，就能做出绝大多数横向布局：
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>属性</th><th>管什么</th><th>常用值</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>display: flex</code></td><td>开关：让子元素横排</td><td>flex</td></tr>
+            <tr><td><code>justify-content</code></td><td>主轴（默认左右）怎么排</td><td>space-between、center</td></tr>
+            <tr><td><code>align-items</code></td><td>交叉轴（默认上下）怎么对齐</td><td>center</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>.nav {
+  display: flex;              /* ① 横排 */
+  justify-content: space-between; /* ② 两端对齐，中间等分 */
+  align-items: center;        /* ③ 垂直居中 */
+  height: 64px;
+  padding: 0 24px;
+}</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>导航栏三件套：</strong>
+        <code>display: flex</code> + <code>justify-content: space-between</code> + <code>align-items: center</code>。
+        这三行能解决 80% 的导航栏需求，背下来。
+      </div>
+
+      <h2 id="text-align-vs-align-items">四、text-align 和 align-items 的区别</h2>
+      <p>
+        这是最容易混的一对。一句话记法：<strong>text 开头的一定是管文字的。</strong>
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>属性</th><th>管谁</th><th>写在哪</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>text-align</code></td><td>盒子<strong>里面文字</strong>的水平对齐</td><td>任意元素</td></tr>
+            <tr><td><code>align-items</code></td><td>flex 容器里<strong>子元素</strong>的交叉轴对齐</td><td>flex 容器（父）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <strong>常见错误：</strong>
+        想让导航栏里的 logo 和链接垂直居中，写了 <code>text-align: center</code> —— 没用。
+        要写 <code>align-items: center</code>，因为你要对齐的是<strong>子元素</strong>，不是文字。
+      </div>
+
+      <h2 id="mindmap">五、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <h3>显示模式与 Flex 入门</h3>
+          <p>4 个分支：display → 容器 → 三开关 → 易混对比</p>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">显示模式与 Flex 入门思维导图</title>
+            <desc id="mmDesc">中心是显示模式与 Flex 入门，四个分支分别是 display 四种值、flex 容器、Flex 三开关、text-align 与 align-items 的区别。</desc>
+
+            <path class="mm-link" d="M300 235 C340 235 340 80 380 80" />
+            <path class="mm-link" d="M300 235 C340 235 340 185 380 185" />
+            <path class="mm-link" d="M300 235 C340 235 340 290 380 290" />
+            <path class="mm-link" d="M300 235 C340 235 340 395 380 395" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">显示模式与 Flex</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="56" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="85" text-anchor="middle">display 四值</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="44" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="72">block / inline</text>
+              <text class="mm-text leaf" x="590" y="96">inline-block / none</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="161" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="190" text-anchor="middle">flex 容器</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="149" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="177">父元素写 display: flex</text>
+              <text class="mm-text leaf" x="590" y="201">只影响直接子元素</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="266" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="295" text-anchor="middle">Flex 三开关</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="254" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="282">display / justify-content</text>
+              <text class="mm-text leaf" x="590" y="306">align-items</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="371" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="400" text-anchor="middle">易混对比</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="359" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="387">text-align 管文字</text>
+              <text class="mm-text leaf" x="590" y="411">align-items 管子元素</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">六、练习题</h2>
+      <section class="practice">
+        <div class="practice-head">
+          <div>
+            <h3>Flex 入门自测 · 共 6 题</h3>
+            <p>覆盖 display、flex 容器、三开关、易混属性。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">给 span 写 width: 100px 没反应，为什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="span 默认 display: inline，行内元素设宽高无效，要改成 inline-block 或 block。"><span class="opt-key"><span>A</span></span>span 默认是 inline，设宽高无效</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>span 不能写 CSS</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>width 拼错了</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>span 必须用 id 选择器</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">display: flex 应该写在谁身上？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>子元素</button>
+            <button class="opt" data-correct="true" data-why="flex 写在父元素上，父元素成为容器，直接子元素自动横排。"><span class="opt-key"><span>B</span></span>父元素</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>body</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>随便哪个都行</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">让导航栏 logo 和链接两端对齐，用哪个属性？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>text-align: space-between</button>
+            <button class="opt" data-correct="true" data-why="justify-content 管主轴（默认左右）的排布，space-between 是两端对齐。"><span class="opt-key"><span>B</span></span>justify-content: space-between</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>align-items: space-between</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>margin: space-between</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">让 flex 容器里的子元素垂直居中，用哪个？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>text-align: center</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>line-height: center</button>
+            <button class="opt" data-correct="true" data-why="align-items 管交叉轴（默认上下），center 就是垂直居中。"><span class="opt-key"><span>C</span></span>align-items: center</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>vertical-align: center</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">display: none 和 visibility: hidden 的区别是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="none 彻底消失且不占位置；hidden 看不见但位置还留着。"><span class="opt-key"><span>A</span></span>none 不占位置，hidden 还占位置</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>两者完全一样</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>hidden 会删除元素</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>none 只是变透明</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">flex 容器只影响谁？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>所有后代元素</button>
+            <button class="opt" data-correct="true" data-why="只影响直接子元素，孙子辈不受影响。"><span class="opt-key"><span>B</span></span>只影响直接子元素</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>只影响自己</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>影响整个页面</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">七、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">用 60 秒解释：「text-align 和 align-items 有什么区别？各自用在哪？」</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              text-align 管的是盒子<strong>里面文字</strong>的水平对齐，写在任意元素上都行，
+              比如让一段文字居中。
+              align-items 是 flex 的属性，管的是 flex 容器里<strong>子元素</strong>在交叉轴上的对齐，
+              写在父元素上，比如让导航栏的 logo 和链接垂直居中。
+              记法很简单：text 开头的一定是管文字的。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">八、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D11: display 与 Flex 导航栏"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 做出一个横向导航栏（logo 左、链接右）</label></li>
+          <li><label><input type="checkbox"> 能说出 display 四种值各自的特点</label></li>
+          <li><label><input type="checkbox"> 能背出导航栏三件套</label></li>
+          <li><label><input type="checkbox"> 能说清 text-align 和 align-items 的区别</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d10.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D10 · 文本、背景、边框</span>
+      </a>
+      <a class="next" href="d12.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D12 · Flexbox 布局</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D11 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

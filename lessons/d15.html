@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D15 · 过渡与动画：transition 四要素、transform 三种变换、卡片悬浮手感配方、prefers-reduced-motion。">
+<title>D15 · 过渡与动画 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d15.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#transition-four">transition 四要素</a></li>
+      <li><a href="#where-to-write">transition 写在哪</a></li>
+      <li><a href="#transform">transform 三种变换</a></li>
+      <li><a href="#hover-card">卡片悬浮手感配方</a></li>
+      <li><a href="#transform-stacking">transform 与层叠上下文</a></li>
+      <li><a href="#reduced-motion">尊重减少动效设置</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 3 周 · CSS 进阶</span>
+        <span class="crumb-sep">/</span>
+        <span>D15</span>
+      </div>
+      <h1>过渡与动画</h1>
+      <p class="lede">
+        苹果官网那种「轻轻浮起」的手感，其实只有两行 CSS。
+        今天把 transition 和 transform 彻底搞懂。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 120 分钟</span>
+        <span class="fact">📄 产出悬浮卡片</span>
+        <span class="fact">🎯 难度 ★★★</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="transition-four">一、transition 四要素</h2>
+      <p>
+        <code>transition</code> 让属性的变化「慢慢发生」，而不是瞬间跳变。它由四部分组成：
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>要素</th><th>属性名</th><th>例子</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>过渡哪个属性</td><td><code>transition-property</code></td><td>transform</td></tr>
+            <tr><td>持续多久</td><td><code>transition-duration</code></td><td>0.2s</td></tr>
+            <tr><td>速度曲线</td><td><code>transition-timing-function</code></td><td>ease</td></tr>
+            <tr><td>延迟多久开始</td><td><code>transition-delay</code></td><td>0s</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>/* 完整写法 */
+.card {
+  transition-property: transform;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+}
+
+/* 简写：最常用，四个值按顺序写，后两个可省 */
+.card {
+  transition: transform 0.2s ease;
+}</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>时长建议 0.15s ~ 0.3s。</strong>
+        太短看不出动画，太长会显得迟钝。苹果官网的悬浮效果基本都在 0.2s 左右。
+      </div>
+
+      <h2 id="where-to-write">二、transition 写在默认状态还是 hover 里</h2>
+      <p>
+        这是最容易写错的地方，直接决定手感。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>写在哪</th><th>移入</th><th>移出</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>.card</code>（默认状态）</td><td>✅ 有动画</td><td>✅ 有动画</td></tr>
+            <tr><td><code>.card:hover</code></td><td>✅ 有动画</td><td>❌ 瞬间弹回</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>/* ✅ 正确：写在默认状态，进出都平滑 */
+.card {
+  transition: transform 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* ❌ 错误：写在 hover 里，移出会瞬间弹回 */
+.card:hover {
+  transition: transform 0.2s ease;
+  transform: translateY(-4px);
+}</code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>原理：</strong>
+        transition 是「从当前状态过渡到新状态」的规则。鼠标移出时，元素回到默认状态，
+        它读的是<strong>默认状态里的 transition</strong>。写在 hover 里，移出时就没有规则可读了。
+      </div>
+
+      <h2 id="transform">三、transform 三种常用变换</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>函数</th><th>作用</th><th>例子</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>translate</code></td><td>位移</td><td><code>translateY(-4px)</code> 往上挪 4px</td></tr>
+            <tr><td><code>scale</code></td><td>缩放</td><td><code>scale(1.02)</code> 放大 2%</td></tr>
+            <tr><td><code>rotate</code></td><td>旋转</td><td><code>rotate(45deg)</code> 转 45 度</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>/* 多个变换写在一起，用空格隔开，顺序会影响结果 */
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+}</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>为什么用 transform 而不是改 top / left？</strong>
+        transform 不触发重排（reflow），只走合成层，性能好得多。
+        动画里优先用 transform 和 opacity，这是性能铁律。
+      </div>
+
+      <h2 id="hover-card">四、卡片悬浮手感配方</h2>
+      <p>
+        把前面学的拼起来，就是苹果官网那种手感：
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  /* ① 过渡写在默认状态，进出都平滑 */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  /* ② 往上浮 4px */
+  transform: translateY(-4px);
+  /* ③ 阴影加深，浮得更高 */
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+}</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>配方三件套：</strong>
+        位移往上 + 阴影加深 + 过渡 0.2s。
+        位移和阴影要<strong>同时</strong>过渡，所以 transition 里用逗号写两个属性。
+      </div>
+
+      <h2 id="transform-stacking">五、transform 会创建层叠上下文</h2>
+      <p>
+        这是 D13 那个 z-index 坑的延伸，面试常考。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>/* 父元素只要写了 transform（哪怕 translate 0），
+   就会创建层叠上下文，子元素的 position: fixed 会失效 */
+.parent {
+  transform: translateZ(0); /* 常见于性能优化写法 */
+}
+
+.child {
+  position: fixed; /* ❌ 不再相对窗口，而是相对 .parent */
+  top: 0;
+}</code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>结论：</strong>
+        给祖先元素加 transform 要小心。如果里面有 fixed 定位的元素（比如弹窗、回到顶部按钮），
+        它会突然「跑偏」。排查时先看祖先有没有 transform。
+      </div>
+
+      <h2 id="reduced-motion">六、尊重用户的减少动效设置</h2>
+      <p>
+        有些用户对动效敏感，看动画会头晕。系统里有「减少动态效果」开关，
+        CSS 可以用媒体查询读到它。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>@media (prefers-reduced-motion: reduce) {
+  * {
+    /* 把动画时长压到几乎为 0，等于关掉动效 */
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>这是无障碍的基本礼貌。</strong>
+        面试时能主动提到 prefers-reduced-motion，是很加分的细节。
+      </div>
+
+      <h2 id="mindmap">七、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <h3>过渡与动画</h3>
+          <p>6 个分支：四要素 → 写在哪 → transform → 悬浮配方 → 层叠上下文 → 无障碍</p>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">过渡与动画思维导图</title>
+            <desc id="mmDesc">中心是过渡与动画，六个分支分别是 transition 四要素、写在哪、transform 三种变换、卡片悬浮配方、transform 创建层叠上下文、prefers-reduced-motion。</desc>
+
+            <path class="mm-link" d="M300 235 C340 235 340 50 380 50" />
+            <path class="mm-link" d="M300 235 C340 235 340 125 380 125" />
+            <path class="mm-link" d="M300 235 C340 235 340 200 380 200" />
+            <path class="mm-link" d="M300 235 C340 235 340 275 380 275" />
+            <path class="mm-link" d="M300 235 C340 235 340 350 380 350" />
+            <path class="mm-link" d="M300 235 C340 235 340 425 380 425" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">过渡与动画</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="26" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="55" text-anchor="middle">四要素</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="14" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="42">property / duration</text>
+              <text class="mm-text leaf" x="590" y="66">timing-function / delay</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="101" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="130" text-anchor="middle">写在哪</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="89" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="117">写在默认状态</text>
+              <text class="mm-text leaf" x="590" y="141">写在 hover 会瞬间弹回</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="176" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="205" text-anchor="middle">transform</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="164" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="192">translate / scale / rotate</text>
+              <text class="mm-text leaf" x="590" y="216">不触发重排，性能好</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="251" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="280" text-anchor="middle">悬浮配方</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="239" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="267">translateY(-4px)</text>
+              <text class="mm-text leaf" x="590" y="291">+ 阴影加深 + 0.2s</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="326" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="355" text-anchor="middle">层叠上下文</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="314" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="342">transform 创建层叠上下文</text>
+              <text class="mm-text leaf" x="590" y="366">子元素 fixed 会失效</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="401" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="430" text-anchor="middle">无障碍</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="389" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="417">prefers-reduced-motion</text>
+              <text class="mm-text leaf" x="590" y="441">时长压到 0.01ms</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">八、练习题</h2>
+      <section class="practice">
+        <div class="practice-head">
+          <div>
+            <h3>过渡与动画自测 · 共 6 题</h3>
+            <p>覆盖四要素、写在哪、transform、悬浮配方、层叠上下文、无障碍。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">transition: transform 0.2s ease 里，0.2s 是什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>延迟时间</button>
+            <button class="opt" data-correct="true" data-why="第二个值是 duration，即过渡持续时长。"><span class="opt-key"><span>B</span></span>持续时长</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>速度曲线</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>位移距离</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">transition 应该写在哪里？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="写在默认状态，鼠标移入和移出都有动画；写在 hover 里移出会瞬间弹回。"><span class="opt-key"><span>A</span></span>默认状态（.card）</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>:hover 里</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>body 上</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>HTML 的 style 属性里</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">translateY(-4px) 的效果是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>往下挪 4px</button>
+            <button class="opt" data-correct="true" data-why="Y 轴负方向是往上，所以是往上挪 4px。"><span class="opt-key"><span>B</span></span>往上挪 4px</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>放大 4 倍</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>旋转 4 度</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">动画里为什么优先用 transform 而不是改 top / left？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>transform 写法更短</button>
+            <button class="opt" data-correct="true" data-why="transform 不触发重排，只走合成层，性能好得多。"><span class="opt-key"><span>B</span></span>transform 不触发重排，性能更好</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>top / left 已经废弃</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>transform 能设颜色</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">祖先元素写了 transform，子元素的 position: fixed 会怎样？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>正常相对窗口固定</button>
+            <button class="opt" data-correct="true" data-why="transform 创建层叠上下文，fixed 的参照物变成这个祖先，不再相对窗口。"><span class="opt-key"><span>B</span></span>失效，改为相对该祖先定位</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>变成 absolute</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>元素消失</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">prefers-reduced-motion 媒体查询的作用是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>让动画更快</button>
+            <button class="opt" data-correct="true" data-why="尊重系统「减少动态效果」设置，把动画时长压到几乎为 0，照顾对动效敏感的用户。"><span class="opt-key"><span>B</span></span>尊重用户设置，关掉或减弱动效</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>检测设备性能</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>自动播放视频</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">九、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">用 60 秒解释：「怎么做出卡片悬浮时轻轻浮起的效果？」</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              分三步。第一，在卡片的默认状态写 transition: transform 0.2s ease, box-shadow 0.2s ease，
+              让位移和阴影都平滑过渡。
+              第二，在 :hover 里写 transform: translateY(-4px)，让卡片往上浮 4px。
+              第三，同时把 box-shadow 加深，制造浮得更高的错觉。
+              关键是 transition 一定要写在默认状态，否则鼠标移出时会瞬间弹回。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">十、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D15: transition 与 transform 悬浮手感"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 卡片悬浮时轻轻浮起，移出时平滑回落</label></li>
+          <li><label><input type="checkbox"> 能说出 transition 四要素</label></li>
+          <li><label><input type="checkbox"> 能解释为什么 transition 要写在默认状态</label></li>
+          <li><label><input type="checkbox"> 加了 prefers-reduced-motion 的兜底</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d14.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D14 · 复盘 + 补进度</span>
+      </a>
+      <a class="next" href="../index.html#catalog">
+        <span class="pager-label">回到</span>
+        <span class="pager-title">课程目录</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D15 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

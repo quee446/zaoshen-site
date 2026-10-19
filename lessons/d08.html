@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D8 · CSS 引入与选择器：用 link 引入 style.css，掌握标签 / class / id 三种选择器与优先级权重。">
+<title>D8 · CSS 引入与选择器 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d08.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#how-to-include">三种引入方式</a></li>
+      <li><a href="#three-selectors">三种选择器</a></li>
+      <li><a href="#specificity">优先级与权重</a></li>
+      <li><a href="#descendant">后代选择器</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 2 周 · CSS 基础</span>
+        <span class="crumb-sep">/</span>
+        <span>D8</span>
+      </div>
+      <h1>CSS 引入与选择器</h1>
+      <p class="lede">
+        从今天开始，页面不再只有黑白骨架。CSS 的第一课只解决两件事：
+        样式怎么接进来，以及怎么「选中」你想改的那个元素。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 120 分钟</span>
+        <span class="fact">📄 产出 style.css</span>
+        <span class="fact">🎯 难度 ★★☆</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="how-to-include">一、三种引入方式</h2>
+      <p>
+        CSS 要生效，必须先和 HTML 建立联系。有三种方式，优先级从高到低推荐程度正好相反：
+        <strong>外部引入最推荐</strong>，内联最不推荐。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>方式</th><th>写法</th><th>写在哪</th><th>评价</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>外部引入</td>
+              <td><code><link rel="stylesheet" href="style.css"></code></td>
+              <td>head 里</td>
+              <td>✅ 最推荐，多页面共用一份</td>
+            </tr>
+            <tr>
+              <td>内部引入</td>
+              <td><code><style> p { color: red; } </style></code></td>
+              <td>head 里</td>
+              <td>⚠️ 只适合单页小 demo</td>
+            </tr>
+            <tr>
+              <td>内联样式</td>
+              <td><code><p style="color: red"></code></td>
+              <td>标签属性上</td>
+              <td>❌ 最难维护，只临时调试用</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- 外部引入：写在 head 里，href 是相对路径 -->
+<link rel="stylesheet" href="style.css"></code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>为什么外部引入最好？</strong>
+        改一处，所有页面一起变；浏览器还能缓存这个文件，第二次打开更快。
+        这也是真实项目里唯一会用的方式。
+      </div>
+
+      <h2 id="three-selectors">二、三种选择器：标签 / class / id</h2>
+      <p>
+        选择器就是「你要改谁」。最常用的三种，记住一个口诀就够了：
+        <strong>class 像校服，id 像学号。</strong>
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>选择器</th><th>写法</th><th>选中谁</th><th>能重复吗</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>标签选择器</td><td><code>p</code></td><td>页面上所有 <code><p></code></td><td>—</td></tr>
+            <tr><td>class 选择器</td><td><code>.card</code></td><td>所有 <code>class="card"</code> 的元素</td><td>✅ 可以重复，像校服</td></tr>
+            <tr><td>id 选择器</td><td><code>#header</code></td><td>唯一那个 <code>id="header"</code></td><td>❌ 一页只能一个，像学号</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>/* 标签选择器：所有段落都变灰 */
+p {
+  color: #666;
+}
+
+/* class 选择器：点号开头，可以给很多元素穿同一件「校服」 */
+.card {
+  padding: 24px;
+}
+
+/* id 选择器：井号开头，一页只能有一个 */
+#header {
+  height: 64px;
+}</code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>命名规则：</strong>
+        只能用字母、数字、<code>-</code>、<code>_</code>，不能以数字开头，不能有空格。
+        <code>class="my card"</code> 是<strong>两个</strong> class，不是名字里带空格。
+      </div>
+
+      <h2 id="specificity">三、优先级与权重</h2>
+      <p>
+        当两条规则都想改同一个元素时，谁赢？看权重。权重高的赢，权重一样时<strong>后写的赢</strong>。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>选择器</th><th>权重</th><th>记忆</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>#id</code></td><td>100</td><td>学号，最硬</td></tr>
+            <tr><td><code>.class</code></td><td>10</td><td>校服，中等</td></tr>
+            <tr><td><code>标签</code></td><td>1</td><td>最弱</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>/* 权重 1 */
+p { color: blue; }
+
+/* 权重 10 —— 赢过上面那条 */
+.text { color: green; }
+
+/* 权重 100 —— 赢过上面两条 */
+#intro { color: red; }</code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>实战建议：别用 id 写样式。</strong>
+        id 权重 100 太高，后面想覆盖只能再写一个 id 或者加 <code>!important</code>，
+        越写越乱。id 留给 JS 找元素和页面锚点用。
+      </div>
+
+      <h2 id="descendant">四、后代选择器</h2>
+      <p>
+        中间用<strong>空格</strong>隔开，意思是「里面的」。它比直接写标签更精准，不会误伤页面上其他的同类标签。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>/* 只改 class 是 card 的元素「里面」的 h2 */
+.card h2 {
+  font-size: 20px;
+}
+
+/* 对比：这样会改掉页面上所有 h2，包括导航栏里的 */
+h2 {
+  font-size: 20px;
+}</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>读法：</strong>从右往左读。<code>.card h2</code> 读作「h2，它在 .card 里面」。
+        面试时这样读，思路最清楚。
+      </div>
+
+      <h2 id="mindmap">五、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <h3>CSS 引入与选择器</h3>
+          <p>4 个分支：引入方式 → 选择器 → 权重 → 后代</p>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">CSS 引入与选择器思维导图</title>
+            <desc id="mmDesc">中心是 CSS 引入与选择器，四个分支分别是三种引入方式、三种选择器、优先级权重、后代选择器。</desc>
+
+            <path class="mm-link" d="M300 235 C340 235 340 80 380 80" />
+            <path class="mm-link" d="M300 235 C340 235 340 185 380 185" />
+            <path class="mm-link" d="M300 235 C340 235 340 290 380 290" />
+            <path class="mm-link" d="M300 235 C340 235 340 395 380 395" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">CSS 引入与选择器</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="56" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="85" text-anchor="middle">三种引入方式</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="44" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="72">link 外部（推荐）</text>
+              <text class="mm-text leaf" x="590" y="96">style 内部 / style 属性内联</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="161" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="190" text-anchor="middle">三种选择器</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="149" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="177">标签 p / .class / #id</text>
+              <text class="mm-text leaf" x="590" y="201">class 像校服，id 像学号</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="266" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="295" text-anchor="middle">优先级权重</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="254" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="282">id 100 / class 10 / 标签 1</text>
+              <text class="mm-text leaf" x="590" y="306">权重相同，后写的赢</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="371" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="400" text-anchor="middle">后代选择器</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="359" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="387">.card h2（空格 = 里面）</text>
+              <text class="mm-text leaf" x="590" y="411">从右往左读，更精准</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">六、练习题</h2>
+      <section class="practice">
+        <div class="practice-head">
+          <div>
+            <h3>CSS 入门自测 · 共 6 题</h3>
+            <p>覆盖引入方式、选择器、权重、后代选择器。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">真实项目里最推荐的 CSS 引入方式是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="外部引入可以多页面共用、能被浏览器缓存，改一处全站生效。"><span class="opt-key"><span>A</span></span>外部引入 link</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>内部引入 style</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>内联 style 属性</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>写在 JS 里</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">想选中页面上所有 class 为 card 的元素，怎么写？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>card</button>
+            <button class="opt" data-correct="true" data-why="class 选择器用点号开头：.card。"><span class="opt-key"><span>B</span></span>.card</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>#card</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>*card</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">id 选择器的权重是多少？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>1</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>10</button>
+            <button class="opt" data-correct="true" data-why="id 权重 100，class 10，标签 1。"><span class="opt-key"><span>C</span></span>100</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>1000</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">两条规则权重相同，谁生效？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>先写的</button>
+            <button class="opt" data-correct="true" data-why="权重相同时，后写的覆盖先写的，这就是「层叠」。"><span class="opt-key"><span>B</span></span>后写的</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>都不生效</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>随机</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">.card h2 选中什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>同时有 card 和 h2 两个 class 的元素</button>
+            <button class="opt" data-correct="true" data-why="空格表示后代：class 是 card 的元素里面的 h2。"><span class="opt-key"><span>B</span></span>class 是 card 的元素里面的 h2</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>紧跟在 .card 后面的 h2</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>所有 h2</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">为什么实战中不建议用 id 写样式？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>id 不能写颜色</button>
+            <button class="opt" data-correct="true" data-why="id 权重 100 太高，后续想覆盖非常麻烦，容易被迫用 !important。"><span class="opt-key"><span>B</span></span>权重太高，后面想覆盖很难</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>id 只能用在 div 上</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>id 会拖慢浏览器</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">七、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">用 60 秒解释：「class 和 id 有什么区别？什么时候用哪个？」</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              class 可以重复使用，一个页面上很多元素可以共用同一个 class，像校服；
+              id 在一页里必须唯一，像学号。
+              写样式时优先用 class，因为 class 权重 10，好覆盖、好复用；
+              id 权重 100 太高，一般只留给 JS 找元素和页面锚点跳转用。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">八、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D8: CSS 引入与三种选择器"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 新建 style.css，用 link 引入成功</label></li>
+          <li><label><input type="checkbox"> 三种选择器各写了一条规则，页面确实变了</label></li>
+          <li><label><input type="checkbox"> 能说出 id 100 / class 10 / 标签 1</label></li>
+          <li><label><input type="checkbox"> 写了一条后代选择器，并解释它为什么更精准</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d07.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D7 · 第一周复盘</span>
+      </a>
+      <a class="next" href="d09.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D9 · 盒模型</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D8 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

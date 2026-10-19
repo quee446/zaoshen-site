@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D10 · 文本、背景、边框：text-align、line-height、linear-gradient 渐变、border-radius 圆角与 box-shadow 阴影。">
+<title>D10 · 文本、背景、边框 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d10.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#text-align">text-align 文字对齐</a></li>
+      <li><a href="#line-height">line-height 行高</a></li>
+      <li><a href="#background">background 与渐变</a></li>
+      <li><a href="#radius-shadow">圆角与阴影</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 2 周 · CSS 基础</span>
+        <span class="crumb-sep">/</span>
+        <span>D10</span>
+      </div>
+      <h1>文本、背景、边框</h1>
+      <p class="lede">
+        今天把「能看」变成「好看」。四个属性就能让一个白底黑字的页面
+        变成浮在渐变背景上的白色卡片。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 110 分钟</span>
+        <span class="fact">📄 改造个人简介页</span>
+        <span class="fact">🎯 难度 ★★☆</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="text-align">一、text-align 文字水平对齐</h2>
+      <p>
+        <code>text-align</code> 管的是<strong>盒子里面文字</strong>怎么排，不是盒子本身的位置。
+        这是新手最容易搞混的一点。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>值</th><th>效果</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>left</code></td><td>靠左（默认）</td></tr>
+            <tr><td><code>center</code></td><td>居中</td></tr>
+            <tr><td><code>right</code></td><td>靠右</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <strong>关键区别：</strong>
+        <code>text-align: center</code> 让<strong>文字</strong>居中，盒子还是占满整行；
+        <code>margin: 0 auto</code> 让<strong>盒子</strong>居中。想居中一个卡片，用后者。
+      </div>
+
+      <h2 id="line-height">二、line-height 行高</h2>
+      <p>
+        行高控制每行文字占的高度。推荐写<strong>不带单位的倍数</strong>，比如 1.6，
+        它会跟着字号自动缩放，比写死 <code>24px</code> 更好维护。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>body {
+  font-size: 16px;
+  line-height: 1.6;  /* 16 × 1.6 = 25.6px，跟着字号自动变 */
+}</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>行高</th><th>观感</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1.0 ~ 1.2</td><td>太挤，像说明书</td></tr>
+            <tr><td>1.5 ~ 1.8</td><td>✅ 正文最舒服的区间</td></tr>
+            <tr><td>2.0 以上</td><td>太散，段落失去整体感</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="background">三、background 与渐变</h2>
+      <p>
+        <code>background</code> 可以写纯色，也可以写渐变。渐变比纯色更有层次感，
+        苹果官网大量使用。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>/* 纯色 */
+body {
+  background: #f5f5f7;
+}
+
+/* 线性渐变：135deg 是方向，后面两个是起止颜色 */
+body {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>135deg 怎么理解：</strong>
+        0deg 是从下往上，90deg 是从左往右，135deg 就是从左上往右下斜着走。
+        想换个方向，改这个角度就行。
+      </div>
+
+      <h2 id="radius-shadow">四、border-radius 与 box-shadow</h2>
+      <p>
+        这两个属性负责「柔和感」。圆角去掉尖锐的角，阴影制造浮起来的错觉。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>.card {
+  border-radius: 12px;                        /* 半径 12px 的圆角 */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); /* 水平 垂直 模糊 颜色 */
+}
+
+.avatar {
+  border-radius: 50%;  /* 50% = 正方形变圆形 */
+}</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>box-shadow 第几个值</th><th>含义</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>第 1 个</td><td>水平偏移（正数往右）</td></tr>
+            <tr><td>第 2 个</td><td>垂直偏移（正数往下）</td></tr>
+            <tr><td>第 3 个</td><td>模糊半径（越大越柔）</td></tr>
+            <tr><td>第 4 个</td><td>颜色（用 rgba 带透明度）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <strong>阴影颜色一定要带透明度。</strong>
+        写 <code>rgba(0,0,0,.12)</code> 而不是 <code>#000</code>，
+        否则阴影会像一块黑胶布，非常脏。
+      </div>
+
+      <h2 id="mindmap">五、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <h3>文本、背景、边框</h3>
+          <p>4 个分支：对齐 → 行高 → 背景 → 圆角阴影</p>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">文本背景边框思维导图</title>
+            <desc id="mmDesc">中心是文本背景边框，四个分支分别是 text-align、line-height、background 渐变、圆角与阴影。</desc>
+
+            <path class="mm-link" d="M300 235 C340 235 340 80 380 80" />
+            <path class="mm-link" d="M300 235 C340 235 340 185 380 185" />
+            <path class="mm-link" d="M300 235 C340 235 340 290 380 290" />
+            <path class="mm-link" d="M300 235 C340 235 340 395 380 395" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">文本 · 背景 · 边框</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="56" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="85" text-anchor="middle">text-align</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="44" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="72">left / center / right</text>
+              <text class="mm-text leaf" x="590" y="96">管文字，不管盒子</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="161" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="190" text-anchor="middle">line-height</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="149" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="177">写倍数 1.6，不写死 px</text>
+              <text class="mm-text leaf" x="590" y="201">正文 1.5 ~ 1.8 最舒服</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="266" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="295" text-anchor="middle">background</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="254" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="282">linear-gradient(135deg, …)</text>
+              <text class="mm-text leaf" x="590" y="306">角度 + 起止颜色</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="371" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="400" text-anchor="middle">圆角与阴影</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="359" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="387">border-radius 12px / 50%</text>
+              <text class="mm-text leaf" x="590" y="411">box-shadow 四值，颜色带透明</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">六、练习题</h2>
+      <section class="practice">
+        <div class="practice-head">
+          <div>
+            <h3>视觉美化自测 · 共 6 题</h3>
+            <p>覆盖对齐、行高、渐变、圆角、阴影。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">想让一个卡片盒子水平居中，应该用？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>text-align: center</button>
+            <button class="opt" data-correct="true" data-why="text-align 管文字，margin: auto 才管盒子本身。"><span class="opt-key"><span>B</span></span>margin: 0 auto</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>line-height: center</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>background: center</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">line-height: 1.6 表示什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>行高固定 1.6px</button>
+            <button class="opt" data-correct="true" data-why="不带单位的数字表示字号的倍数，会跟着字号自动缩放。"><span class="opt-key"><span>B</span></span>行高是字号的 1.6 倍</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>字间距 1.6px</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>只有 1.6 行文字</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">linear-gradient(135deg, #667eea, #764ba2) 里 135deg 表示？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>颜色数量</button>
+            <button class="opt" data-correct="true" data-why="角度决定渐变方向，135deg 是从左上往右下斜着走。"><span class="opt-key"><span>B</span></span>渐变方向</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>透明度</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>圆角半径</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">把正方形头像变成圆形，border-radius 写多少？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>12px</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>24px</button>
+            <button class="opt" data-correct="true" data-why="50% 让四个角都变成半径一半的圆弧，正方形就成了圆形。"><span class="opt-key"><span>C</span></span>50%</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>100px</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">box-shadow: 0 8px 24px rgba(0,0,0,.12) 中，24px 是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>水平偏移</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>垂直偏移</button>
+            <button class="opt" data-correct="true" data-why="第三个值是模糊半径，越大阴影越柔和。"><span class="opt-key"><span>C</span></span>模糊半径</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>颜色透明度</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">阴影颜色为什么推荐 rgba 而不是 #000？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>rgba 性能更好</button>
+            <button class="opt" data-correct="true" data-why="带透明度才能做出柔和的投影，纯黑会像一块黑胶布。"><span class="opt-key"><span>B</span></span>带透明度才柔和，纯黑太脏</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>#000 浏览器不支持</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>两者完全一样</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">七、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">用 60 秒解释：「text-align: center 和 margin: 0 auto 有什么区别？」</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              text-align: center 是给盒子写的，它让盒子<strong>里面的文字</strong>居中，
+              盒子本身还是占满整行。
+              margin: 0 auto 是让<strong>盒子本身</strong>水平居中，
+              原理是左右 margin 设为 auto，把剩余空间平分。
+              所以居中一个卡片用 margin: auto，居中一段文字用 text-align: center。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">八、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D10: 文本背景边框美化"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 页面背景换成了渐变</label></li>
+          <li><label><input type="checkbox"> 正文 line-height 调到 1.6 左右</label></li>
+          <li><label><input type="checkbox"> 卡片有圆角和柔和阴影</label></li>
+          <li><label><input type="checkbox"> 能说清 text-align 和 margin auto 的区别</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d09.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D9 · 盒模型</span>
+      </a>
+      <a class="next" href="d11.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D11 · 显示模式与 Flex 入门</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D10 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

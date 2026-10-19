@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="造神计划 · 前端全栈 180 天学习站。每天一课，含思维导图、练习题与验收清单。">
+<title>造神计划 · 前端全栈 180 天</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip-link" href="#catalog">跳到课程目录</a>
+<div class="read-progress" id="readProgress" aria-hidden="true"></div>
+
+<!-- ============ 导航 ============ -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">Z</span>
+      <span>造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="index.html" aria-current="page">首页</a>
+      <a href="#catalog">课程目录</a>
+      <a href="lessons/d13.html">当前课程</a>
+    </nav>
+    <span class="nav-spacer"></span>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题"></button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ 主界面 ============ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-kicker"><span class="dot"></span>第 2 周 · CSS 基础 · 进行到 D13</span>
+
+      <h1>每天一课，<br><span class="thin">把前端学到能面试。</span></h1>
+
+      <p class="hero-sub">
+        180 天，从第一个 <code>index.html</code> 到能讲清定位、层叠、Flex。
+        每节课都有能跑起来的产出、一张思维导图、一组练习题。
+      </p>
+
+      <!-- 搜索栏 -->
+      <div class="search" role="search">
+        <div class="search-field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+          <input id="searchInput" type="search" placeholder="搜索课程、知识点，比如「定位」「flex」「盒模型」"
+                 autocomplete="off" aria-label="搜索课程" aria-controls="searchResults" aria-expanded="false">
+          <span class="search-hint">/</span>
+        </div>
+        <div class="search-results" id="searchResults" role="listbox" aria-label="搜索结果"></div>
+      </div>
+
+      <div class="stats" id="stats"></div>
+    </div>
+  </section>
+
+  <!-- ============ 继续学习 ============ -->
+  <section class="section" style="padding-top:0;">
+    <div class="resume" id="resume"></div>
+  </section>
+
+  <!-- ============ 课程目录 ============ -->
+  <section class="section" id="catalog">
+    <div class="section-head">
+      <h2>课程目录</h2>
+      <p>按周分组 · 点周标题可折叠</p>
+    </div>
+    <div id="lessonList"></div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 先做后懂，每天一个能看见的产出。</span>
+    <span>按 <b>/</b> 或 <b>⌘K</b> 随时搜索</span>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

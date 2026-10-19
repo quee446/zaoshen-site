@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D7 · 第一周复盘：5 道自测题 + 一份周复盘，用间隔重复确认第一周真的学会了。">
+<title>D7 · 第一周复盘 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d07.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#self-test">五道自测题</a></li>
+      <li><a href="#review-method">复盘怎么写才有用</a></li>
+      <li><a href="#spaced-repetition">间隔重复排期</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 1 周 · 环境 + HTML 入门</span>
+        <span class="crumb-sep">/</span>
+        <span>D7</span>
+      </div>
+      <h1>第一周复盘</h1>
+      <p class="lede">
+        今天不学新知识。复盘的价值在于「把学过的东西真正变成自己的」——
+        用自测暴露漏洞，用间隔重复把漏洞补上。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 90 分钟</span>
+        <span class="fact">📄 产出周复盘笔记</span>
+        <span class="fact">🎯 难度 ★☆☆</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="self-test">一、五道自测题</h2>
+      <p>
+        先不看答案，口头回答下面五题。答不上来的，回对应那天重看那一节。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>问题</th><th>对应</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>用户能看见的内容写在哪个标签里？</td><td>D1 / D2</td></tr>
+            <tr><td>2</td><td>图片的路径写在 img 的哪个属性里？</td><td>D3</td></tr>
+            <tr><td>3</td><td>有先后顺序的步骤用哪个列表标签？</td><td>D3</td></tr>
+            <tr><td>4</td><td>页面主体内容用哪个语义化标签？</td><td>D5</td></tr>
+            <tr><td>5</td><td>把代码推上 GitHub 用哪个命令？</td><td>D6</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <strong>标准答案：</strong>① body ② src ③ ol ④ main ⑤ git push。
+        五题全对说明第一周的地基是稳的；错 2 题以上，明天先补再往下走。
+      </div>
+
+      <h2 id="review-method">二、复盘怎么写才有用</h2>
+      <p>
+        复盘不是抄笔记。抄一遍笔记只是「手在动」，脑子没动。
+        真正有用的复盘只回答三个问题：
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>问题</th><th>要写成什么样</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>这周我真正会了什么？</strong></td>
+              <td>写「能独立写出一个带导航的个人主页」，不写「学了 HTML」</td>
+            </tr>
+            <tr>
+              <td><strong>哪里还卡着？</strong></td>
+              <td>写「label 的 for 和 id 绑定还不熟」，不写「有点难」</td>
+            </tr>
+            <tr>
+              <td><strong>下周怎么补？</strong></td>
+              <td>写「明天重写一遍报名表，不看参考代码」，不写「多练习」</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>## 第 1 周复盘（2026-10-19）
+
+### 我真正会了什么
+- 能独立写出一个带 header / nav / main / footer 的个人主页
+- 能用 git add / commit / push 把代码推上 GitHub
+
+### 哪里还卡着
+- label 的 for 和 input 的 id 绑定，写的时候还要想一下
+- 相对路径 ../ 和 文件夹/ 的区别，偶尔写反
+
+### 下周怎么补
+- 明天重写一遍报名表，不看参考代码
+- 每天新内容开始前，先做 3 道上周的自测题</code></pre>
+      </div>
+
+      <h2 id="spaced-repetition">三、间隔重复排期</h2>
+      <p>
+        遗忘是正常的，对抗遗忘最省力的办法是<strong>在快忘的时候复习一次</strong>。
+        推荐节奏：
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>时间点</th><th>做什么</th><th>花多久</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>当天学完</td><td>做本课自测题</td><td>10 分钟</td></tr>
+            <tr><td>第 2 天</td><td>口头回答 3 个核心问题</td><td>5 分钟</td></tr>
+            <tr><td>第 4 天</td><td>不看笔记重写一遍关键代码</td><td>15 分钟</td></tr>
+            <tr><td>第 7 天</td><td>做一遍全部自测题</td><td>10 分钟</td></tr>
+            <tr><td>第 15 天</td><td>给「三个月前的自己」讲一遍</td><td>10 分钟</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <strong>为什么有效：</strong>每次「回忆」都会让记忆痕迹变深一次。
+        重看笔记是「输入」，做自测是「提取」——提取比重看有效得多，这叫<strong>检索练习</strong>。
+      </div>
+
+      <h2 id="mindmap">四、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <span class="mindmap-title">D7 · 第一周复盘</span>
+          <span class="mindmap-sub">一张图记住复盘方法</span>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">D7 第一周复盘 思维导图</title>
+            <desc id="mmDesc">中心是复盘，三个分支：自测五题、复盘三问、间隔重复。</desc>
+
+            <path class="mm-link" d="M300 235 C 340 235, 340 100, 380 100" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 235, 380 235" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 370, 380 370" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">第一周复盘</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="76" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="105" text-anchor="middle">自测五题</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="64" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="92">body / src / ol</text>
+              <text class="mm-text leaf" x="590" y="116">main / git push</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="211" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="240" text-anchor="middle">复盘三问</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="199" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="227">会了什么 / 卡在哪</text>
+              <text class="mm-text leaf" x="590" y="251">下周怎么补（要具体）</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="346" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="375" text-anchor="middle">间隔重复</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="334" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="362">第 2 / 4 / 7 / 15 天</text>
+              <text class="mm-text leaf" x="590" y="386">提取比重看更有效</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">五、练习题</h2>
+      <section class="practice" id="practice">
+        <div class="practice-head">
+          <div>
+            <h3>周复盘自测 · 共 8 题</h3>
+            <p>覆盖 D1–D6 全部核心考点。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">用户能看见的内容写在哪个标签里？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>head</button>
+            <button class="opt" data-correct="true" data-why="body 是内容区，用户能看见的一切都在这里。"><span class="opt-key"><span>B</span></span>body</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>title</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>meta</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">图片路径写在 img 的哪个属性里？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="img 用 src 写路径，用 alt 写替代文字。"><span class="opt-key"><span>A</span></span>src</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>href</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>alt</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>link</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">有先后顺序的步骤用哪个列表？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>ul</button>
+            <button class="opt" data-correct="true" data-why="ol 是有序列表，会自动编号 1. 2. 3.，适合步骤。"><span class="opt-key"><span>B</span></span>ol</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>li</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>dl</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">页面主体内容用哪个语义化标签？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>section</button>
+            <button class="opt" data-correct="true" data-why="main 表示这一页的主体内容，一个页面只能有一个。"><span class="opt-key"><span>B</span></span>main</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>article</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>div</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">把代码推上 GitHub 用哪个命令？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>git add</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>git commit</button>
+            <button class="opt" data-correct="true" data-why="git push 把本地提交推到远程仓库。"><span class="opt-key"><span>C</span></span>git push</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>git init</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">label 的 for 应该等于 input 的什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>name</button>
+            <button class="opt" data-correct="true" data-why="for 等于 input 的 id，两者才能绑定，点文字才能聚焦输入框。"><span class="opt-key"><span>B</span></span>id</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>type</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>class</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">07</span><span class="q-text">下面哪种复盘写法最有用？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>今天学了 HTML，感觉还行</button>
+            <button class="opt" data-correct="true" data-why="具体到「会什么、卡在哪、怎么补」，才能指导明天的行动。"><span class="opt-key"><span>B</span></span>能写个人主页，但 label 绑定还不熟，明天重写报名表</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>把今天的笔记抄一遍</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>今天很累</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">08</span><span class="q-text">对抗遗忘最有效的方式是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>反复重看笔记</button>
+            <button class="opt" data-correct="true" data-why="检索练习（做自测、主动回忆）比被动重看有效得多，配合间隔重复效果最好。"><span class="opt-key"><span>B</span></span>间隔重复 + 主动回忆</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>一次学很久</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>看视频</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 8</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">六、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">用 60 秒向一个完全不懂的人介绍：「你这周学了什么，能做出什么？」</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              这周我学了 HTML，也就是网页的骨架。我能独立写出一个个人主页，
+              里面有页头、导航、主体内容、页脚，能放图片、链接、列表、表格和报名表单。
+              代码用 Git 存档，已经推到 GitHub 上了，每天的学习记录都能追溯。
+              下周开始学 CSS，给这个页面加上颜色和布局。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">七、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D7: 第一周复盘 + 自测"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 五道自测题全部口头答对</label></li>
+          <li><label><input type="checkbox"> 写了一份周复盘（三问都答了）</label></li>
+          <li><label><input type="checkbox"> 在日历上标了第 2 / 4 / 7 / 15 天的复习</label></li>
+          <li><label><input type="checkbox"> 复盘笔记已 commit 并 push</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d06.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D6 · Git 基础与上传 GitHub</span>
+      </a>
+      <a class="next" href="d08.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D8 · CSS 引入与选择器</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D7 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

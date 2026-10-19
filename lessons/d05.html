@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D5 · 语义化标签：用 header / nav / main / section / footer 搭出页面骨架。">
+<title>D5 · 语义化标签 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d05.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#why-semantic">为什么要语义化</a></li>
+      <li><a href="#skeleton">页面骨架五件套</a></li>
+      <li><a href="#section-vs-article">section 和 article 的区别</a></li>
+      <li><a href="#div-when">什么时候还用 div</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 1 周 · 环境 + HTML 入门</span>
+        <span class="crumb-sep">/</span>
+        <span>D5</span>
+      </div>
+      <h1>语义化标签</h1>
+      <p class="lede">
+        前四天你写的页面，结构上其实全是 div 也能跑。
+        今天要解决的是「代码能不能自己说话」——让标签名直接表达这块内容是什么。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 110 分钟</span>
+        <span class="fact">📄 产出 semantic.html</span>
+        <span class="fact">🎯 难度 ★★☆</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="why-semantic">一、为什么要语义化</h2>
+      <p>
+        <code>div</code> 什么都能装，但它不告诉你装的是什么。
+        看下面两段代码，功能一样，可读性差很多：
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- 全是 div：能跑，但看不出每块是干什么的 -->
+<div class="top">...</div>
+<div class="middle">...</div>
+<div class="bottom">...</div>
+
+<!-- 语义化：标签名自己会说话 -->
+<header>...</header>
+<main>...</main>
+<footer>...</footer></code></pre>
+      </div>
+      <p>语义化有三个实打实的好处：</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>好处</th><th>说明</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>SEO</strong></td><td>搜索引擎靠标签判断哪块是正文、哪块是导航，权重分配更准</td></tr>
+            <tr><td><strong>无障碍</strong></td><td>读屏软件可以按「地标」跳读，用户能直接跳到 main，跳过导航</td></tr>
+            <tr><td><strong>可维护</strong></td><td>队友（和三个月后的你）一眼看懂结构，不用猜 class 名的意思</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <strong>面试话术：</strong>语义化就是「用正确的标签做正确的事」。
+        它让机器（搜索引擎、读屏软件）和人（队友）都能理解页面结构。
+      </div>
+
+      <h2 id="skeleton">二、页面骨架五件套</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>标签</th><th>是什么</th><th>注意</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>header</code></td><td>页头：logo、站点名、导航</td><td>可以出现在 body 里，也可以出现在 article 里</td></tr>
+            <tr><td><code>nav</code></td><td>导航：一组跳转链接</td><td>不是所有链接都要包 nav，只包主要导航</td></tr>
+            <tr><td><code>main</code></td><td>主体：这一页独有的内容</td><td><strong>一个页面只能有一个</strong></td></tr>
+            <tr><td><code>section</code></td><td>主体里的一段，通常带标题</td><td>没有标题的 section 意义不大</td></tr>
+            <tr><td><code>footer</code></td><td>页脚：版权、联系方式</td><td>和 header 一样可以嵌套</td></tr>
+            <tr><td><code>aside</code></td><td>侧边栏：补充内容</td><td>去掉它页面依然完整</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><body>
+  <!-- 页头：logo + 导航 -->
+  <header>
+    <h1>我的个人主页</h1>
+    <nav>
+      <ul>
+        <li><a href="#about">关于我</a></li>
+        <li><a href="#hobby">我的爱好</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 主体：一页只能有一个 main -->
+  <main>
+    <section id="about">
+      <h2>关于我</h2>
+      <p>我是一名前端学习者。</p>
+    </section>
+
+    <section id="hobby">
+      <h2>我的爱好</h2>
+      <ul>
+        <li>写代码</li>
+        <li>健身</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- 页脚：版权信息 -->
+  <footer>
+    <p>© 2026 我的个人主页</p>
+  </footer>
+</body></code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>最容易踩的坑：</strong>一个页面写了两个 <code>main</code>。
+        和 h1 一样，main 表达「这一页的主体」，只能有一个。
+      </div>
+
+      <h2 id="section-vs-article">三、section 和 article 的区别</h2>
+      <p>这两个最容易混，判断标准只有一句话：</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>标签</th><th>判断标准</th><th>例子</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>article</code></td>
+              <td>能<strong>独立拿出去</strong>发布，脱离上下文也说得通</td>
+              <td>一篇博客、一条评论、一张卡片</td>
+            </tr>
+            <tr>
+              <td><code>section</code></td>
+              <td>主题相同的一段，<strong>离开上下文就说不通</strong></td>
+              <td>「关于我」这一段、「联系方式」这一段</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <strong>拿不准怎么办：</strong>用 <code>section</code>。
+        硬套 article 反而会让读屏软件把内容当成独立文章播报，体验更差。
+      </div>
+
+      <h2 id="div-when">四、什么时候还用 div</h2>
+      <p>
+        div 没有被淘汰，它是<strong>纯容器</strong>——没有任何语义，专门用来做布局分组。
+        判断标准：这块内容本身没有「是什么」的含义，你只是想把几个东西包起来好加样式。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- 这里用 div 是对的：只是把两个按钮包起来方便排版 -->
+<div class="actions">
+  <button>保存</button>
+  <button>取消</button>
+</div>
+
+<!-- 这里用 section 更好：这块内容有明确主题「最新文章」 -->
+<section class="latest">
+  <h2>最新文章</h2>
+  ...
+</section></code></pre>
+      </div>
+
+      <h2 id="mindmap">五、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <span class="mindmap-title">D5 · 语义化标签</span>
+          <span class="mindmap-sub">一张图记住今天所有知识点</span>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">D5 语义化标签 思维导图</title>
+            <desc id="mmDesc">中心是语义化，四个分支：三个好处、骨架五件套、section 与 article、div 的定位。</desc>
+
+            <path class="mm-link" d="M300 235 C 340 235, 340 78, 380 78" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 183, 380 183" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 288, 380 288" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 393, 380 393" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">语义化</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="54" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="83" text-anchor="middle">三个好处</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="42" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="70">SEO 更懂页面结构</text>
+              <text class="mm-text leaf" x="590" y="94">读屏可跳读 + 队友看得懂</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="159" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="188" text-anchor="middle">骨架五件套</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="147" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="175">header / nav / main</text>
+              <text class="mm-text leaf" x="590" y="199">section / footer（main 只一个）</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="264" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="293" text-anchor="middle">section / article</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="252" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="280">article 能独立发布</text>
+              <text class="mm-text leaf" x="590" y="304">section 是主题相同的一段</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="369" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="398" text-anchor="middle">div 的定位</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="357" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="385">纯容器，无语义</text>
+              <text class="mm-text leaf" x="590" y="409">只用来做布局分组</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">六、练习题</h2>
+      <section class="practice" id="practice">
+        <div class="practice-head">
+          <div>
+            <h3>自测 · 共 6 题</h3>
+            <p>点选项立刻判分，答错会告诉你为什么。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">一个页面里 main 最多能有几个？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="main 表达「这一页的主体内容」，只能有一个。多个 main 会让读屏软件无法确定主体。"><span class="opt-key"><span>A</span></span>1 个</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>2 个</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>每个 section 一个</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>不限</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">「一篇可以独立发布的博客」应该用哪个标签？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>section</button>
+            <button class="opt" data-correct="true" data-why="article 表示能独立拿出去发布的内容，博客、评论、卡片都属于这一类。"><span class="opt-key"><span>B</span></span>article</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>div</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>aside</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">语义化对 SEO 有帮助，主要原因是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="搜索引擎靠标签判断哪块是正文、哪块是导航，语义化让权重分配更准确。"><span class="opt-key"><span>A</span></span>搜索引擎能识别内容结构</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>语义化标签加载更快</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>语义化标签体积更小</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>语义化能自动生成关键词</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">aside 里应该放什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>页面主体内容</button>
+            <button class="opt" data-correct="true" data-why="aside 是补充内容，比如侧边栏、相关推荐、广告。去掉它页面依然完整。"><span class="opt-key"><span>B</span></span>侧边栏这类补充内容</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>页脚版权</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>主导航</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">下面哪种情况用 div 最合适？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="只是想把两个按钮包起来方便排版，这块内容本身没有语义，用 div 正确。"><span class="opt-key"><span>A</span></span>把两个按钮包起来方便排版</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>页面顶部放 logo 和导航</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>一篇独立的博客文章</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>页面底部放版权</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">nav 里应该放什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>页面所有链接</button>
+            <button class="opt" data-correct="true" data-why="nav 只包主要导航（一组跳转链接）。正文里零散的链接不需要包 nav。"><span class="opt-key"><span>B</span></span>主要导航的一组链接</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>页脚版权</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>图片</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">七、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">面试官问：「什么是语义化？为什么要语义化？」请用 40 秒讲清楚。</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              语义化就是用正确的标签做正确的事：页头用 header，导航用 nav，主体用 main，
+              独立内容用 article，主题段落用 section，页脚用 footer。
+              好处有三个：搜索引擎能准确识别内容结构，提升 SEO；
+              读屏软件可以按地标跳读，提升无障碍体验；代码可读性高，方便维护。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">八、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D5: 语义化标签搭页面骨架"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 页面有 header / nav / main / footer</label></li>
+          <li><label><input type="checkbox"> main 只有一个</label></li>
+          <li><label><input type="checkbox"> 至少两个 section，每个都有 h2</label></li>
+          <li><label><input type="checkbox"> 代码已 commit 并 push</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d04.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D4 · 表格与表单</span>
+      </a>
+      <a class="next" href="d06.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D6 · Git 基础与上传 GitHub</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D5 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

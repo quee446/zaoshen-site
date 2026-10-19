@@ -1,0 +1,5 @@
+# 部署平台本地缓存 / 构建产物，不要提交
+.vercel/
+.netlify/
+node_modules/
+.DS_Store

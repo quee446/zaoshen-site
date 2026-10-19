@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D2 · HTML 结构与 head / body：搞懂 head 和 body 的分工，用 h1~h6、p、br 排出有层次的文字。">
+<title>D2 · HTML 结构与 head / body | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d02.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#head-vs-body">head 和 body 的分工</a></li>
+      <li><a href="#headings">标题 h1 ~ h6</a></li>
+      <li><a href="#paragraph">段落 p 与换行 br</a></li>
+      <li><a href="#nesting">标签嵌套规则</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 1 周 · 环境 + HTML 入门</span>
+        <span class="crumb-sep">/</span>
+        <span>D2</span>
+      </div>
+      <h1>HTML 结构与 head / body</h1>
+      <p class="lede">
+        昨天你让浏览器显示了名字，今天要搞明白「为什么能显示」。
+        这一课只有四件事：head 与 body 的分工、标题的六个层级、段落与换行、标签怎么嵌套。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 110 分钟</span>
+        <span class="fact">📄 产出 index.html 升级版</span>
+        <span class="fact">🎯 难度 ★☆☆</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="head-vs-body">一、head 和 body 的分工</h2>
+      <p>
+        一个 HTML 文档的结构是固定的：<code>html</code> 是根，里面只有两个儿子——
+        <code>head</code> 和 <code>body</code>。它们是<strong>兄弟关系</strong>，不是父子。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>区域</th><th>给谁看</th><th>放什么</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>head</code></td>
+              <td>浏览器、搜索引擎、读屏软件</td>
+              <td>title、meta charset、meta viewport、引入 CSS 的 link</td>
+            </tr>
+            <tr>
+              <td><code>body</code></td>
+              <td>用户</td>
+              <td>标题、段落、图片、链接、按钮……所有看得见的东西</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>今天要新加一行 <code>meta viewport</code>，它是手机适配的开关：</p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- 让页面宽度等于手机屏幕宽度，初始缩放 1 倍（不加手机上会缩得很小） -->
+<meta name="viewport" content="width=device-width, initial-scale=1"></code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>记忆法：</strong>head 是「设置」，body 是「内容」。
+        写代码时先问自己一句：这行字用户要不要看见？要 → body，不要 → head。
+      </div>
+
+      <h2 id="headings">二、标题 h1 ~ h6</h2>
+      <p>
+        HTML 给了六级标题，<code>h1</code> 最大最重要，<code>h6</code> 最小。
+        它们的作用不是「把字变大」，而是<strong>表达层级</strong>。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>标签</th><th>语义</th><th>典型用法</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>h1</code></td><td>页面主标题</td><td>整页只有一个，比如「我的个人主页」</td></tr>
+            <tr><td><code>h2</code></td><td>大段落标题</td><td>「关于我」「我的爱好」「联系方式」</td></tr>
+            <tr><td><code>h3</code></td><td>小段落标题</td><td>「关于我」下面的「教育经历」</td></tr>
+            <tr><td><code>h4</code> ~ <code>h6</code></td><td>更细的层级</td><td>一般很少用到，别为了字小就用 h6</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <strong>铁律：</strong>一个页面只写<strong>一个</strong> <code>h1</code>。
+        它是这一页的主题，写两个搜索引擎就不知道你到底在讲什么。
+        想要字大，用 CSS 的 <code>font-size</code>，不要拿 <code>h4</code> 冒充 <code>h2</code>。
+      </div>
+
+      <h2 id="paragraph">三、段落 p 与换行 br</h2>
+      <p>
+        <code>p</code> 是一个段落。浏览器会自动在段落前后留出空白，所以两段文字之间不用手动加空行。
+      </p>
+      <p>
+        <code>br</code> 是强制换行，它是<strong>单标签</strong>，没有 <code></br></code>。
+        只在「同一段里必须断行」时用，比如地址、诗歌。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- 两个 p 之间浏览器自动留空，不需要写空行 -->
+<p>第一段：我是谁。</p>
+<p>第二段：我会什么。</p>
+
+<!-- br 是单标签，只在同一段内强制断行时用 -->
+<p>北京市朝阳区<br>某某街道 1 号</p></code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>新手最迷惑的一点：</strong>在代码里连续敲十个回车，页面上<strong>不会</strong>出现十个空行。
+        HTML 会把连续的空格和换行压缩成一个空格。想控制间距，以后用 CSS 的 margin。
+      </div>
+
+      <h2 id="nesting">四、标签嵌套规则</h2>
+      <p>标签像盒子套盒子，必须遵守三条：</p>
+      <ul>
+        <li><strong>先开的后关</strong>：<code><p><strong>字</strong></p></code> 对，交叉就错；</li>
+        <li><strong>块级不能塞进段落</strong>：<code>p</code> 里不能放 <code>div</code>、<code>h2</code> 这种块级元素；</li>
+        <li><strong>缩进只是给人看的</strong>：浏览器不在乎你缩几个空格，但队友在乎。</li>
+      </ul>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!-- 正确：先开后关，缩进两格表示层级 -->
+<body>
+  <h1>我的个人主页</h1>
+  <h2>关于我</h2>
+  <p>我是一名<strong>前端学习者</strong>。</p>
+</body></code></pre>
+      </div>
+
+      <h2 id="mindmap">五、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <span class="mindmap-title">D2 · HTML 结构与 head / body</span>
+          <span class="mindmap-sub">一张图记住今天所有知识点</span>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">D2 HTML 结构 思维导图</title>
+            <desc id="mmDesc">中心是 HTML 结构，四个分支：head 与 body、标题层级、段落换行、嵌套规则。</desc>
+
+            <path class="mm-link" d="M300 235 C 340 235, 340 78, 380 78" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 183, 380 183" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 288, 380 288" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 393, 380 393" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">HTML 结构</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="54" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="83" text-anchor="middle">head / body</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="42" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="70">head = 设置，看不见</text>
+              <text class="mm-text leaf" x="590" y="94">body = 内容，看得见</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="159" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="188" text-anchor="middle">标题层级</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="147" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="175">h1 一页只写一个</text>
+              <text class="mm-text leaf" x="590" y="199">h2 分大段，h3 分小段</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="264" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="293" text-anchor="middle">段落与换行</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="252" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="280">p 自动留段间距</text>
+              <text class="mm-text leaf" x="590" y="304">br 单标签，强制断行</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="369" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="398" text-anchor="middle">嵌套规则</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="357" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="385">先开后关，不能交叉</text>
+              <text class="mm-text leaf" x="590" y="409">p 里不放块级元素</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">六、练习题</h2>
+      <section class="practice" id="practice">
+        <div class="practice-head">
+          <div>
+            <h3>自测 · 共 6 题</h3>
+            <p>点选项立刻判分，答错会告诉你为什么。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">head 和 body 是什么关系？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>父子关系，body 在 head 里面</button>
+            <button class="opt" data-correct="true" data-why="它们是兄弟关系，都直接包在 html 里，互不包含。"><span class="opt-key"><span>B</span></span>兄弟关系，都在 html 里</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>没关系，可以随便放</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>head 在 body 里面</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">一个页面里 h1 应该用几次？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="h1 是页面主题，只能有一个。多个 h1 会让搜索引擎和读屏软件分不清重点。"><span class="opt-key"><span>A</span></span>1 次</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>2 次</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>每个段落 1 次</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>越多越好</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">在代码里连续敲 5 个回车，页面上会怎样？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>出现 5 个空行</button>
+            <button class="opt" data-correct="true" data-why="HTML 会把连续的空格和换行压缩成一个空格，所以页面上看不出空行。要控制间距得用 CSS 的 margin。"><span class="opt-key"><span>B</span></span>被压缩成一个空格</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>页面报错</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>出现 5 条横线</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">下面哪个是单标签？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>p</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>h2</button>
+            <button class="opt" data-correct="true" data-why="br 是单标签，没有 </br>，它只表示「在这里断一行」。"><span class="opt-key"><span>C</span></span>br</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>strong</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">下面哪个嵌套是错的？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span><p><strong>字</strong></p></button>
+            <button class="opt" data-correct="true" data-why="p 是段落，里面不能放 div 这种块级元素，浏览器会自动把 p 提前闭合，结构就乱了。"><span class="opt-key"><span>B</span></span><p><div>字</div></p></button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span><body><h1>字</h1></body></button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span><head><title>字</title></head></button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">meta viewport 的作用是什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>设置页面背景色</button>
+            <button class="opt" data-correct="true" data-why="它让页面宽度等于设备屏幕宽度，手机上才不会把整个网页缩成一小块。"><span class="opt-key"><span>B</span></span>让页面适配手机屏幕宽度</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>防止中文乱码</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>设置标签页标题</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">七、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">面试官问：「为什么一个页面只能有一个 h1？」请用 30 秒讲清楚。</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              h1 表达的是这一页的主题，就像一篇文章只有一个标题。
+              写多个 h1，搜索引擎无法判断哪个是重点，读屏软件的大纲也会乱。
+              需要更细的层级就用 h2、h3 往下排，需要字大就用 CSS 的 font-size。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">八、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D2: head/body 分工 + 标题层级 + 段落换行"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 页面里有且只有一个 h1</label></li>
+          <li><label><input type="checkbox"> 用了至少两个 h2 分段</label></li>
+          <li><label><input type="checkbox"> 加了 meta viewport</label></li>
+          <li><label><input type="checkbox"> 代码已 commit 并 push</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d01.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D1 · 环境搭建与第一个网页</span>
+      </a>
+      <a class="next" href="d03.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D3 · 列表、链接、图片</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D2 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

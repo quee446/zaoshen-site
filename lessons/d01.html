@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D1 · 环境搭建与第一个网页：装好 VS Code 和 Git，写出 index.html，在浏览器里看到自己的名字。">
+<title>D1 · 环境搭建与第一个网页 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d01.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#what-is-web">网页到底是什么</a></li>
+      <li><a href="#install">装工具：VS Code 与 Git</a></li>
+      <li><a href="#first-page">写出第一个 index.html</a></li>
+      <li><a href="#line-by-line">九行代码逐行拆解</a></li>
+      <li><a href="#mental-model">心智模型：head 与 body</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 1 周 · 环境 + HTML 入门</span>
+        <span class="crumb-sep">/</span>
+        <span>D1</span>
+      </div>
+      <h1>环境搭建与第一个网页</h1>
+      <p class="lede">
+        今天不写复杂代码，只做一件事：让浏览器里出现你自己的名字。
+        做完你会明白——网页不过是一个纯文本文件，浏览器负责把它翻译成画面。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 120 分钟</span>
+        <span class="fact">📄 产出 index.html</span>
+        <span class="fact">🎯 难度 ★☆☆</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="what-is-web">一、网页到底是什么</h2>
+      <p>
+        先破一个迷思：网页不是「软件」，也不是什么神秘的东西。
+        它就是一个<strong>纯文本文件</strong>，后缀叫 <code>.html</code>。
+        你用记事本打开它，看到的是文字；用浏览器打开它，看到的是画面。
+      </p>
+      <p>
+        浏览器做的事情只有一件：读这个文件，把里面的<strong>标签</strong>翻译成看得见的东西。
+        所以写网页的本质，是<strong>给内容贴标签</strong>——告诉浏览器「这段是标题」「那段是段落」。
+      </p>
+      <div class="callout tip">
+        <strong>一句话记住：</strong>HTML 不是编程语言，是「贴标签的语言」。
+        它不会算数、不会判断，只负责说明「这块内容是什么」。
+      </div>
+
+      <h2 id="install">二、装工具：VS Code 与 Git</h2>
+      <p>今天只需要两个工具，都是免费的：</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>工具</th><th>干什么用</th><th>怎么装</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>VS Code</strong></td>
+              <td>写代码的编辑器，有颜色高亮、自动补全</td>
+              <td>官网 code.visualstudio.com 下载，拖进「应用程序」</td>
+            </tr>
+            <tr>
+              <td><strong>Git</strong></td>
+              <td>给代码存档，以后能上传到 GitHub</td>
+              <td>终端执行 <code>brew install git</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>装完在终端验证一下，能出版本号就算成功：</p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 查看 Git 版本，能打印出版本号就说明装好了
+git --version
+
+# 创建今天的工作文件夹（-p 表示父目录不存在就一起创建）
+mkdir -p ~/Desktop/zaoshen/day1</code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>常见坑：</strong>命令敲完没反应，多半是路径写错了。
+        终端里 <code>~</code> 代表你的用户主目录，别把它当成普通字符。
+      </div>
+
+      <h2 id="first-page">三、写出第一个 index.html</h2>
+      <p>
+        在 VS Code 里打开 <code>day1</code> 文件夹，新建文件 <code>index.html</code>，
+        把下面九行原样敲进去（<strong>不要复制粘贴</strong>，手敲一遍肌肉记忆才长出来）：
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code><!DOCTYPE html>                          <!-- 声明这是 HTML5 文档 -->
+<html lang="zh-CN">                      <!-- 根元素，语言设为简体中文 -->
+<head>                                   <!-- 头部：给浏览器看的信息 -->
+  <meta charset="UTF-8">                 <!-- 编码设为 UTF-8，防止中文乱码 -->
+  <title>我的第一个网页</title>          <!-- 标签页上显示的字 -->
+</head>                                  <!-- 头部结束 -->
+<body>                                   <!-- 身体：用户能看见的内容 -->
+  <h1>你好，我是 XXX</h1>                <!-- 一级标题，把 XXX 换成你的名字 -->
+</body>                                  <!-- 身体结束 -->
+</html>                                  <!-- 根元素结束 --></code></pre>
+      </div>
+      <p>
+        保存（<kbd>⌘</kbd> + <kbd>S</kbd>），然后在 Finder 里双击 <code>index.html</code>，
+        浏览器就会打开它，页面上出现你的名字。
+      </p>
+      <div class="callout tip">
+        <strong>验收标准（色盲友好）：</strong>不看颜色，只看两件事——
+        ① 浏览器标签页上的文字是不是「我的第一个网页」；
+        ② 页面正文里有没有出现你的名字。
+      </div>
+
+      <h2 id="line-by-line">四、九行代码逐行拆解</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>代码</th><th>作用</th><th>不写会怎样</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code><!DOCTYPE html></code></td>
+              <td>告诉浏览器「这是 HTML5」</td>
+              <td>浏览器进入怪异模式，某些样式会算错</td>
+            </tr>
+            <tr>
+              <td><code><html lang="zh-CN"></code></td>
+              <td>根元素，声明页面语言是简体中文</td>
+              <td>读屏软件可能用英文发音念中文</td>
+            </tr>
+            <tr>
+              <td><code><head></code></td>
+              <td>装「设置」的盒子，用户看不见</td>
+              <td>没地方放标题和编码</td>
+            </tr>
+            <tr>
+              <td><code><meta charset="UTF-8"></code></td>
+              <td>指定字符编码</td>
+              <td>中文变成「锟斤拷」这种乱码</td>
+            </tr>
+            <tr>
+              <td><code><title></code></td>
+              <td>浏览器标签页上的文字</td>
+              <td>标签页显示文件路径，很难看</td>
+            </tr>
+            <tr>
+              <td><code><body></code></td>
+              <td>装「内容」的盒子，用户看得见</td>
+              <td>写什么都显示不出来</td>
+            </tr>
+            <tr>
+              <td><code><h1></code></td>
+              <td>一级标题，字最大最重要</td>
+              <td>文字变成普通小字，没有层次</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <strong>最容易犯的错：</strong>把内容写进 <code><head></code> 里。
+        症状是「我明明写了字，页面上什么都没有」——因为 head 里的东西用户看不见。
+      </div>
+
+      <h2 id="mental-model">五、心智模型：head 是设置，body 是内容</h2>
+      <p>
+        把网页想成一份正式文档：
+      </p>
+      <ul>
+        <li><strong>head</strong> 像封面和版权页——标题、编码、作者，读者不会逐字读，但必须有；</li>
+        <li><strong>body</strong> 像正文——读者真正要看的东西全在这里。</li>
+      </ul>
+      <p>
+        这个模型会陪你走完整个前端学习。以后学 CSS、JavaScript，
+        你会发现「设置」和「内容」的分工一直存在。
+      </p>
+
+      <h2 id="mindmap">六、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <span class="mindmap-title">D1 · 环境搭建与第一个网页</span>
+          <span class="mindmap-sub">一张图记住今天所有知识点</span>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">D1 环境搭建与第一个网页 思维导图</title>
+            <desc id="mmDesc">中心是第一个网页，五个分支：网页本质、装工具、九行代码、逐行拆解、心智模型。</desc>
+
+            <!-- 连线：从中心节点连到五个分支 -->
+            <path class="mm-link" d="M300 235 C 340 235, 340 66, 380 66" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 156, 380 156" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 246, 380 246" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 336, 380 336" />
+            <path class="mm-link" d="M300 235 C 340 235, 340 426, 380 426" />
+
+            <!-- 中心节点 -->
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">第一个网页</text>
+            </g>
+
+            <!-- 分支 1 -->
+            <g class="mm-node">
+              <rect x="380" y="42" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="71" text-anchor="middle">网页本质</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="30" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="58">纯文本 .html 文件</text>
+              <text class="mm-text leaf" x="590" y="82">浏览器负责翻译标签</text>
+            </g>
+
+            <!-- 分支 2 -->
+            <g class="mm-node">
+              <rect x="380" y="132" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="161" text-anchor="middle">装工具</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="120" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="148">VS Code：写代码</text>
+              <text class="mm-text leaf" x="590" y="172">Git：给代码存档</text>
+            </g>
+
+            <!-- 分支 3 -->
+            <g class="mm-node">
+              <rect x="380" y="222" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="251" text-anchor="middle">九行代码</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="210" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="238">DOCTYPE / html / head</text>
+              <text class="mm-text leaf" x="590" y="262">body / h1 / title</text>
+            </g>
+
+            <!-- 分支 4 -->
+            <g class="mm-node">
+              <rect x="380" y="312" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="341" text-anchor="middle">逐行拆解</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="300" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="328">charset=UTF-8 防乱码</text>
+              <text class="mm-text leaf" x="590" y="352">title 是标签页上的字</text>
+            </g>
+
+            <!-- 分支 5 -->
+            <g class="mm-node">
+              <rect x="380" y="402" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="431" text-anchor="middle">心智模型</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="390" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="418">head = 设置（看不见）</text>
+              <text class="mm-text leaf" x="590" y="442">body = 内容（看得见）</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">七、练习题</h2>
+      <section class="practice" id="practice">
+        <div class="practice-head">
+          <div>
+            <h3>自测 · 共 6 题</h3>
+            <p>点选项立刻判分，答错会告诉你为什么。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">网页文件本质上是什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>一种编译后的程序</button>
+            <button class="opt" data-correct="true" data-why="网页就是一个纯文本文件，后缀 .html，浏览器负责把里面的标签翻译成画面。"><span class="opt-key"><span>B</span></span>一个纯文本文件</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>一张图片</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>一个数据库</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">用户能看见的内容应该写在哪个标签里？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>head</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>title</button>
+            <button class="opt" data-correct="true" data-why="body 是「身体」，用户能看见的一切内容都放这里。head 里的东西用户看不见。"><span class="opt-key"><span>C</span></span>body</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>meta</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">中文显示成乱码，最可能是哪一行写错了？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>DOCTYPE</button>
+            <button class="opt" data-correct="true" data-why="meta charset="UTF-8" 指定字符编码，写错或漏写中文就会乱码。"><span class="opt-key"><span>B</span></span>meta charset</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>h1</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>body</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">浏览器标签页上显示的文字由哪个标签决定？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>h1</button>
+            <button class="opt" data-correct="true" data-why="title 标签里的文字就是浏览器标签页上显示的字，它在 head 里。"><span class="opt-key"><span>B</span></span>title</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>p</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>html</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">「我写了字但页面上什么都没有」，最可能的原因是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="内容写进了 head 里。head 是给浏览器看的设置区，用户看不见，内容必须写在 body 里。"><span class="opt-key"><span>A</span></span>内容写进了 head</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>没写 DOCTYPE</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>没装 Git</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>文件名不是 index</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">下面哪个是「单标签」（不需要闭合）？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>h1</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>body</button>
+            <button class="opt" data-correct="true" data-why="meta 是单标签，没有 </meta>。它只携带信息，不包裹内容。"><span class="opt-key"><span>C</span></span>meta</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>title</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">八、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">面试官问：「说说 head 和 body 的区别。」请用 30 秒讲清楚。</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              head 是给浏览器和搜索引擎看的设置区，用户看不见，里面放 title、meta charset、引入 CSS 的 link。
+              body 是用户能看见的内容区，页面上所有文字、图片、按钮都在这里。
+              两者是兄弟关系，都直接包在 html 里。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">九、今日提交</h2>
+      <p>做完把代码存档并推上 GitHub：</p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D1: 环境搭建 + 第一个网页"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 浏览器能打开 index.html，看到自己的名字</label></li>
+          <li><label><input type="checkbox"> 标签页文字是「我的第一个网页」</label></li>
+          <li><label><input type="checkbox"> 中文没有乱码</label></li>
+          <li><label><input type="checkbox"> 代码已 commit 并 push</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="../index.html">
+        <span class="pager-label">返回</span>
+        <span class="pager-title">课程目录</span>
+      </a>
+      <a class="next" href="d02.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D2 · HTML 结构与 head / body</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D1 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

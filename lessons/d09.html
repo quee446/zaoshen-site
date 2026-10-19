@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D9 · 盒模型：content / padding / border / margin 四层，box-sizing: border-box，margin auto 居中原理与卡片配方。">
+<title>D9 · 盒模型 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d09.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#four-layers">盒模型四层</a></li>
+      <li><a href="#box-sizing">box-sizing 为什么必须写</a></li>
+      <li><a href="#margin-auto">margin auto 居中原理</a></li>
+      <li><a href="#card">卡片组件配方</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 2 周 · CSS 基础</span>
+        <span class="crumb-sep">/</span>
+        <span>D9</span>
+      </div>
+      <h1>盒模型</h1>
+      <p class="lede">
+        页面上每一个元素都是一个「盒子」。搞懂盒子的四层结构，
+        你才知道为什么明明写了 300px 却撑破了布局。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 120 分钟</span>
+        <span class="fact">📄 产出卡片组件</span>
+        <span class="fact">🎯 难度 ★★☆</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="four-layers">一、盒模型四层</h2>
+      <p>
+        从里到外一共四层。用寄快递来记最牢：
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>层</th><th>CSS 属性</th><th>快递类比</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>内容</td><td><code>content</code>（width / height）</td><td>你要寄的物品</td></tr>
+            <tr><td>内边距</td><td><code>padding</code></td><td>物品周围的泡沫</td></tr>
+            <tr><td>边框</td><td><code>border</code></td><td>纸箱的箱壁</td></tr>
+            <tr><td>外边距</td><td><code>margin</code></td><td>箱子与箱子之间的空隙</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <strong>口诀：</strong>内容 → 内边距 → 边框 → 外边距。
+        从里往外数，顺序永远不变。
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>.box {
+  width: 300px;          /* 内容宽度 */
+  padding: 24px;         /* 内边距：内容到边框的距离 */
+  border: 2px solid #ddd;/* 边框：2px 实线 */
+  margin: 40px;          /* 外边距：盒子外面的空隙 */
+}</code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>padding 和 margin 最容易混：</strong>
+        padding 在边框<strong>里面</strong>，会把盒子撑大，背景色也会铺过去；
+        margin 在边框<strong>外面</strong>，是透明的，不显示背景色。
+      </div>
+
+      <h2 id="box-sizing">二、box-sizing: border-box 为什么必须写</h2>
+      <p>
+        默认是 <code>content-box</code>：你写 <code>width: 300px</code>，只是<strong>内容</strong> 300px。
+        再加上左右 padding 和 border，实际占的宽度就变成 300 + 24×2 + 2×2 = 352px。
+        三个这样的盒子并排，布局就撑破了。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>box-sizing</th><th>width: 300px 表示</th><th>实际总宽</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>content-box</code>（默认）</td><td>只有内容 300px</td><td>300 + padding + border</td></tr>
+            <tr><td><code>border-box</code></td><td>连 padding 和 border 一起 300px</td><td>就是 300px</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>/* 星号选中所有元素，一次性给全站加上，这是行业标配 */
+* {
+  box-sizing: border-box;
+}</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>一句话记住：</strong>
+        写了 border-box，<code>width</code> 就是你眼睛看到的宽度，padding 和 border 往里挤，不会往外撑。
+      </div>
+
+      <h2 id="margin-auto">三、margin: 40px auto 的居中原理</h2>
+      <p>
+        <code>margin: 40px auto</code> 是「上下 40px，左右 auto」的简写。
+        <code>auto</code> 的意思是：<strong>把剩下的空间平均分给左右两边</strong>，盒子自然就居中了。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>.card {
+  width: 600px;      /* 必须有明确宽度 */
+  margin: 40px auto; /* 上下 40px，左右自动平分 → 水平居中 */
+}</code></pre>
+      </div>
+      <div class="callout warn">
+        <strong>前提条件：盒子必须有明确宽度。</strong>
+        如果没写 width，块级元素默认占满一整行，没有「剩余空间」可分，auto 就变成了 0，看起来完全没居中。
+      </div>
+      <div class="callout tip">
+        <strong>和 text-align 的区别：</strong>
+        <code>margin: auto</code> 让<strong>盒子本身</strong>居中；
+        <code>text-align: center</code> 让<strong>盒子里的文字</strong>居中。这是 D10 会细讲的一对。
+      </div>
+
+      <h2 id="card">四、卡片组件配方</h2>
+      <p>
+        一个看起来「浮起来」的卡片，就是五样东西凑齐：
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>.card {
+  width: 320px;              /* ① 明确宽度 */
+  padding: 24px;             /* ② 内边距，内容不贴边 */
+  background: #ffffff;       /* ③ 背景色 */
+  border-radius: 12px;       /* ④ 圆角 */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); /* ⑤ 阴影 */
+}</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>阴影四个值：</strong>
+        水平偏移 0、垂直偏移 8px、模糊半径 24px、颜色。
+        垂直偏移为正 = 阴影往下，看起来就像卡片浮在纸面上。
+      </div>
+
+      <h2 id="mindmap">五、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <h3>盒模型</h3>
+          <p>4 个分支：四层结构 → box-sizing → 居中 → 卡片配方</p>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">盒模型思维导图</title>
+            <desc id="mmDesc">中心是盒模型，四个分支分别是四层结构、box-sizing、margin auto 居中、卡片配方。</desc>
+
+            <path class="mm-link" d="M300 235 C340 235 340 80 380 80" />
+            <path class="mm-link" d="M300 235 C340 235 340 185 380 185" />
+            <path class="mm-link" d="M300 235 C340 235 340 290 380 290" />
+            <path class="mm-link" d="M300 235 C340 235 340 395 380 395" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">盒模型</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="56" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="85" text-anchor="middle">四层结构</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="44" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="72">content → padding</text>
+              <text class="mm-text leaf" x="590" y="96">→ border → margin</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="161" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="190" text-anchor="middle">box-sizing</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="149" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="177">border-box 必须写</text>
+              <text class="mm-text leaf" x="590" y="201">width 就是最终宽度</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="266" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="295" text-anchor="middle">水平居中</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="254" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="282">margin: 40px auto</text>
+              <text class="mm-text leaf" x="590" y="306">前提：有明确 width</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="371" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="400" text-anchor="middle">卡片配方</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="359" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="387">宽 + padding + 背景</text>
+              <text class="mm-text leaf" x="590" y="411">+ 圆角 + 阴影</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">六、练习题</h2>
+      <section class="practice">
+        <div class="practice-head">
+          <div>
+            <h3>盒模型自测 · 共 6 题</h3>
+            <p>覆盖四层结构、box-sizing、居中、卡片配方。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">盒模型从里到外的正确顺序是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>margin → border → padding → content</button>
+            <button class="opt" data-correct="true" data-why="从里到外：content 内容 → padding 内边距 → border 边框 → margin 外边距。"><span class="opt-key"><span>B</span></span>content → padding → border → margin</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>padding → content → margin → border</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>border → content → padding → margin</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">padding 和 margin 的区别是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="padding 在边框里面，会撑大盒子且带背景色；margin 在边框外面，透明不占背景。"><span class="opt-key"><span>A</span></span>padding 在边框内，margin 在边框外</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>padding 只能写上下，margin 只能写左右</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>两者完全一样</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>margin 会显示背景色</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">默认 content-box 下，width: 300px + padding: 24px + border: 2px，实际总宽是多少？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>300px</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>324px</button>
+            <button class="opt" data-correct="true" data-why="300 + 24×2 + 2×2 = 352px。这就是布局被撑破的原因。"><span class="opt-key"><span>C</span></span>352px</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>326px</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">写了 box-sizing: border-box 之后，width: 300px 表示？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>只有内容 300px</button>
+            <button class="opt" data-correct="true" data-why="border-box 下 width 包含 padding 和 border，就是最终看到的宽度。"><span class="opt-key"><span>B</span></span>连 padding 和 border 一起 300px</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>只有 padding 300px</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>width 失效</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">margin: 40px auto 能水平居中的前提是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>必须是行内元素</button>
+            <button class="opt" data-correct="true" data-why="auto 是把剩余空间平分，所以盒子必须有明确宽度，否则占满整行没有剩余空间。"><span class="opt-key"><span>B</span></span>盒子必须有明确宽度</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>必须写 text-align: center</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>必须写 display: flex</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">box-shadow: 0 8px 24px rgba(0,0,0,.12) 里，8px 是什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>水平偏移</button>
+            <button class="opt" data-correct="true" data-why="四个值依次是：水平偏移、垂直偏移、模糊半径、颜色。8px 是垂直偏移，正值往下。"><span class="opt-key"><span>B</span></span>垂直偏移</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>模糊半径</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>圆角大小</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">七、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">用 60 秒解释：「为什么每个项目开头都要写 * { box-sizing: border-box; }？」</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              因为浏览器默认是 content-box，width 只算内容，padding 和 border 会额外加上去，
+              写 300px 实际可能变成 352px，几个盒子并排就会撑破布局。
+              改成 border-box 之后，width 就是最终宽度，padding 和 border 往里挤，
+              算尺寸的时候不用再心算加法，布局稳定得多。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">八、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D9: 盒模型与卡片组件"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 能画出盒模型四层并说出顺序</label></li>
+          <li><label><input type="checkbox"> 全站加了 box-sizing: border-box</label></li>
+          <li><label><input type="checkbox"> 用 margin: auto 把一个卡片居中成功</label></li>
+          <li><label><input type="checkbox"> 做出一个带圆角和阴影的卡片</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d08.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D8 · CSS 引入与选择器</span>
+      </a>
+      <a class="next" href="d10.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D10 · 文本、背景、边框</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D9 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D13 · 定位 position：五种取值、包含块、z-index 层叠上下文，做出卡片角标与回到顶部按钮。">
+<title>D13 · 定位 position · 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span>造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d13.html" aria-current="page">D13 定位</a>
+    </nav>
+    <span class="nav-spacer"></span>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="切换主题"></button>
+  </div>
+</header>
+
+<div class="lesson-shell">
+
+  <!-- ============ 左侧目录 ============ -->
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#review">零 · 复习三题</a></li>
+      <li><a href="#five-values">一 · position 五种值</a></li>
+      <li><a href="#relative-vs-absolute">1.2 relative vs absolute</a></li>
+      <li><a href="#fixed-vs-sticky">1.3 fixed vs sticky</a></li>
+      <li><a href="#z-index">二 · z-index 层叠</a></li>
+      <li><a href="#mindmap">三 · 思维导图</a></li>
+      <li><a href="#badge">四 · 动手：NEW 角标</a></li>
+      <li><a href="#back-to-top">五 · 动手：回到顶部</a></li>
+      <li><a href="#practice">六 · 练习题</a></li>
+      <li><a href="#speak">七 · 口述题</a></li>
+      <li><a href="#ship">八 · 提交与卡片</a></li>
+    </ol>
+  </aside>
+
+  <!-- ============ 正文 ============ -->
+  <main class="lesson-main-col" id="content">
+
+    <div class="lesson-hero">
+      <div class="crumb">
+        <a href="../index.html">首页</a>
+        <span>/</span>
+        <a href="../index.html#catalog">第 2 周 · CSS 基础</a>
+        <span>/</span>
+        <span>D13</span>
+      </div>
+      <h1>定位 position</h1>
+      <p class="lede">
+        D12 你学会了「让元素排队」。今天学「让元素脱离队伍，自己站到指定位置」——
+        卡片右上角的 NEW 角标、悬浮的回到顶部按钮、吸顶导航栏，都是它。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">时长 <b>约 100 分钟</b></span>
+        <span class="fact">产出 <b>D13/card.html + style.css</b></span>
+        <span class="fact">面试清单 <b>第 1 块 · 第 4 条</b></span>
+        <span class="fact">前置 <b>D12 Flexbox</b></span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <!-- ---------- 零 ---------- -->
+      <h2 id="review">零 · 先复习三题</h2>
+      <p>合上资料，先在心里回答，再点选项验证。这三题来自 D12，答错就回去重看对应小节。</p>
+
+      <div class="q q-review">
+        <div class="q-head"><span class="q-no">R1</span><span class="q-text"><code>flex: 1</code> 展开成哪三个属性？</span></div>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>flex-grow / flex-wrap / flex-basis</button>
+          <button class="opt" data-correct="true" data-why="flex 是 grow、shrink、basis 三个属性的简写。"><span class="opt-key"><span>B</span></span>flex-grow / flex-shrink / flex-basis</button>
+          <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>flex-start / flex-end / flex-center</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+
+      <div class="q q-review">
+        <div class="q-head"><span class="q-no">R2</span><span class="q-text"><code>flex-wrap: wrap</code> 应该写在谁身上？</span></div>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>写在子元素 .card 上</button>
+          <button class="opt" data-correct="true" data-why="换行是容器的行为，写在父元素 .cards 上。"><span class="opt-key"><span>B</span></span>写在父元素 .cards 上</button>
+          <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>父子都写才生效</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+
+      <div class="q q-review">
+        <div class="q-head"><span class="q-no">R3</span><span class="q-text"><code>gap</code> 比 <code>margin-right</code> 好在哪？</span></div>
+        <div class="opts">
+          <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>gap 支持百分比，margin 不支持</button>
+          <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>gap 能设颜色，margin 不能设</button>
+          <button class="opt" data-correct="true" data-why="gap 只在元素之间产生间距，首尾不会多出一块。"><span class="opt-key"><span>C</span></span>gap 只加在元素之间，首尾不加</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+
+      <!-- ---------- 一 ---------- -->
+      <h2 id="five-values">一 · position 五种值</h2>
+      <p>
+        默认情况下，所有元素都在「文档流」里排队，一个挨一个往下排。
+        <code>position</code> 决定的是：<strong>这个元素还排不排队，以及它站在哪</strong>。
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>值</th><th>还占位置吗</th><th>相对谁移动</th><th>一句话</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>static</code></td><td>占</td><td>不移动</td><td>默认值，写了等于没写</td></tr>
+            <tr><td><code>relative</code></td><td><strong>占</strong></td><td>相对自己原来的位置</td><td>微调位置，坑还留着</td></tr>
+            <tr><td><code>absolute</code></td><td><strong>不占</strong></td><td>最近的已定位祖先</td><td>脱离队伍，飘到指定位置</td></tr>
+            <tr><td><code>fixed</code></td><td><strong>不占</strong></td><td>浏览器窗口</td><td>滚动时不动，钉在屏幕上</td></tr>
+            <tr><td><code>sticky</code></td><td>占</td><td>滚动到阈值前正常，之后钉住</td><td>吸顶导航栏</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warn">
+        <span class="label">最容易错的一点</span>
+        <p><strong>「最近的已定位祖先」不等于「父元素」。</strong>它指的是往上找，第一个 <code>position</code> 不是 <code>static</code> 的祖先。一路找到 <code>html</code> 都没有，就相对整个页面定位。</p>
+        <p>记忆口诀：<strong>absolute 认「已定位」的祖先，不认「亲爹」。</strong></p>
+      </div>
+
+      <h3>1.1 四个方向属性</h3>
+      <p>定位之后，用这四个属性告诉它「站哪」。写 <code>top: 0; right: 0;</code> 就是贴住包含块的右上角。</p>
+
+      <div class="code-block">
+        <div class="code-head"><span>css</span><button class="copy-btn" type="button">复制</button></div>
+        <pre><code>/* 定位元素离上边 0，离右边 0 —— 也就是贴右上角 */
+top: 0;      /* 离包含块上边多远 */
+right: 0;    /* 离包含块右边多远 */
+bottom: 0;   /* 离包含块下边多远 */
+left: 0;     /* 离包含块左边多远 */</code></pre>
+      </div>
+
+      <p>
+        如果同时写 <code>left</code> 和 <code>right</code>，且元素没设宽度，元素会被<strong>拉伸</strong>到两边都贴住。
+        权威参考：<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="noopener">MDN · position</a>。
+      </p>
+
+      <h3 id="relative-vs-absolute">1.2 relative vs absolute 最大区别</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>对比项</th><th><code>relative</code></th><th><code>absolute</code></th></tr></thead>
+          <tbody>
+            <tr><td>原来的位置</td><td><strong>还占着</strong>，后面的元素不会挤上来</td><td><strong>空出来了</strong>，后面的元素会补位</td></tr>
+            <tr><td>相对谁移动</td><td>相对自己原来的位置</td><td>相对最近的已定位祖先</td></tr>
+            <tr><td>典型用途</td><td>给子元素当「定位参照物」</td><td>角标、下拉菜单、弹层</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>记忆口诀：<strong>relative 是「人走了，座位还留着」；absolute 是「人走了，座位也没了」。</strong></p>
+
+      <h3 id="fixed-vs-sticky">1.3 fixed vs sticky 最大区别</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>对比项</th><th><code>fixed</code></th><th><code>sticky</code></th></tr></thead>
+          <tbody>
+            <tr><td>参照物</td><td>浏览器窗口</td><td>最近的滚动容器</td></tr>
+            <tr><td>是否占位</td><td><strong>不占</strong>，脱离文档流</td><td><strong>占</strong>，还在队伍里</td></tr>
+            <tr><td>生效条件</td><td>直接生效</td><td>必须写 <code>top</code> / <code>bottom</code> 等阈值</td></tr>
+            <tr><td>典型用途</td><td>回到顶部按钮、悬浮客服</td><td>吸顶导航栏、表格表头</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>记忆口诀：<strong>fixed 是「钉在屏幕上」，sticky 是「滚到边上才粘住」。</strong></p>
+
+      <!-- ---------- 二 ---------- -->
+      <h2 id="z-index">二 · z-index 与层叠上下文</h2>
+      <p>元素脱离文档流之后可能互相盖住。<code>z-index</code> 决定谁在上面。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>规则</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>数值越大越靠上</td><td><code>z-index: 10</code> 盖住 <code>z-index: 1</code></td></tr>
+            <tr><td>只对已定位元素生效</td><td>必须配合 relative / absolute / fixed / sticky</td></tr>
+            <tr><td>默认是 auto</td><td>不写时按 HTML 顺序，后面的盖住前面的</td></tr>
+            <tr><td>可以写负数</td><td><code>z-index: -1</code> 会跑到父元素背景下面</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warn">
+        <span class="label">面试必问：z-index 为什么不生效？</span>
+        <p><strong>① 没写 position。</strong>元素还是 <code>static</code>，<code>z-index</code> 直接被忽略。最常见。</p>
+        <p><strong>② 父元素形成了层叠上下文。</strong>子元素的 <code>z-index</code> 再大，也大不过父元素那一层。</p>
+        <p><strong>③ 数值相同。</strong>按 HTML 顺序，后面的盖住前面的。</p>
+      </div>
+
+      <h3>2.1 谁创建了层叠上下文</h3>
+      <div class="code-block">
+        <div class="code-head"><span>css</span><button class="copy-btn" type="button">复制</button></div>
+        <pre><code>/* 以下任一属性都会创建「层叠上下文」，把子元素关在里面 */
+position: relative;      /* 配合 z-index 不是 auto 时 */
+opacity: 0.9;            /* 只要小于 1 就会 */
+transform: scale(1);     /* 只要不是 none 就会 */
+filter: blur(0);         /* 只要不是 none 就会 */
+will-change: transform;  /* 提前声明也会 */</code></pre>
+      </div>
+      <p>记忆口诀：<strong>opacity / transform / filter 一出现，子元素的 z-index 就「出不了门」。</strong></p>
+
+      <!-- ---------- 三 · 思维导图 ---------- -->
+      <h2 id="mindmap">三 · 思维导图</h2>
+      <p>一张图记住今天全部内容。手机上可以左右滑动查看。</p>
+
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <b>position 定位</b>
+          <span>D13 · 5 个取值 · 3 个坑</span>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">position 定位思维导图</title>
+            <desc id="mmDesc">中心是 position，分出五个取值、四个方向属性、z-index 层叠规则、两个实战配方与三个常见坑。</desc>
+
+            <!-- 连线：中心 → 分支 -->
+            <path class="mm-link" d="M300 235 C 340 235, 340 60, 380 60"/>
+            <path class="mm-link" d="M300 235 C 340 235, 340 150, 380 150"/>
+            <path class="mm-link" d="M300 235 C 340 235, 340 240, 380 240"/>
+            <path class="mm-link" d="M300 235 C 340 235, 340 330, 380 330"/>
+            <path class="mm-link" d="M300 235 C 340 235, 340 420, 380 420"/>
+
+            <!-- 中心 -->
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14"
+                    fill="var(--accent)" stroke="var(--accent)"/>
+              <text class="mm-text root" x="210" y="236" text-anchor="middle">position</text>
+            </g>
+
+            <!-- 分支 1：五种值 -->
+            <g class="mm-node">
+              <rect x="380" y="36" width="150" height="48" rx="10"
+                    fill="var(--bg-elev-2)" stroke="var(--line-strong)"/>
+              <text class="mm-text branch" x="455" y="61" text-anchor="middle">五种取值</text>
+            </g>
+            <path class="mm-link" d="M530 60 H 570"/>
+            <g class="mm-node">
+              <rect x="570" y="24" width="300" height="72" rx="10"
+                    fill="var(--bg-elev)" stroke="var(--line)"/>
+              <text class="mm-text leaf" x="586" y="44">static 默认 · relative 占位 · absolute 不占位</text>
+              <text class="mm-text leaf" x="586" y="66">fixed 相对窗口 · sticky 滚动后钉住</text>
+            </g>
+
+            <!-- 分支 2：方向属性 -->
+            <g class="mm-node">
+              <rect x="380" y="126" width="150" height="48" rx="10"
+                    fill="var(--bg-elev-2)" stroke="var(--line-strong)"/>
+              <text class="mm-text branch" x="455" y="151" text-anchor="middle">方向属性</text>
+            </g>
+            <path class="mm-link" d="M530 150 H 570"/>
+            <g class="mm-node">
+              <rect x="570" y="114" width="300" height="72" rx="10"
+                    fill="var(--bg-elev)" stroke="var(--line)"/>
+              <text class="mm-text leaf" x="586" y="134">top / right / bottom / left</text>
+              <text class="mm-text leaf" x="586" y="156">top:0 + right:0 = 贴右上角</text>
+            </g>
+
+            <!-- 分支 3：z-index -->
+            <g class="mm-node">
+              <rect x="380" y="216" width="150" height="48" rx="10"
+                    fill="var(--bg-elev-2)" stroke="var(--line-strong)"/>
+              <text class="mm-text branch" x="455" y="241" text-anchor="middle">z-index 层叠</text>
+            </g>
+            <path class="mm-link" d="M530 240 H 570"/>
+            <g class="mm-node">
+              <rect x="570" y="204" width="300" height="72" rx="10"
+                    fill="var(--bg-elev)" stroke="var(--line)"/>
+              <text class="mm-text leaf" x="586" y="224">只对已定位元素生效 · 数值大在上</text>
+              <text class="mm-text leaf" x="586" y="246">opacity / transform / filter 会关住子元素</text>
+            </g>
+
+            <!-- 分支 4：两个配方 -->
+            <g class="mm-node">
+              <rect x="380" y="306" width="150" height="48" rx="10"
+                    fill="var(--bg-elev-2)" stroke="var(--line-strong)"/>
+              <text class="mm-text branch" x="455" y="331" text-anchor="middle">两个配方</text>
+            </g>
+            <path class="mm-link" d="M530 330 H 570"/>
+            <g class="mm-node">
+              <rect x="570" y="294" width="300" height="72" rx="10"
+                    fill="var(--bg-elev)" stroke="var(--line)"/>
+              <text class="mm-text leaf" x="586" y="314">角标：父 relative + 子 absolute</text>
+              <text class="mm-text leaf" x="586" y="336">回顶：fixed + right/bottom 24px</text>
+            </g>
+
+            <!-- 分支 5：三个坑 -->
+            <g class="mm-node">
+              <rect x="380" y="396" width="150" height="48" rx="10"
+                    fill="var(--bg-elev-2)" stroke="var(--line-strong)"/>
+              <text class="mm-text branch" x="455" y="421" text-anchor="middle">三个坑</text>
+            </g>
+            <path class="mm-link" d="M530 420 H 570"/>
+            <g class="mm-node">
+              <rect x="570" y="384" width="300" height="72" rx="10"
+                    fill="var(--bg-elev)" stroke="var(--line)"/>
+              <text class="mm-text leaf" x="586" y="404">父元素忘写 relative → 角标飞走</text>
+              <text class="mm-text leaf" x="586" y="426">z-index 没写 position · 父元素有 transform</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i style="background:var(--accent)"></i>核心概念</span>
+          <span><i style="background:var(--bg-elev-2);border:1px solid var(--line-strong)"></i>分支</span>
+          <span><i style="background:var(--bg-elev);border:1px solid var(--line)"></i>要点</span>
+        </div>
+      </div>
+
+      <!-- ---------- 四 ---------- -->
+      <h2 id="badge">四 · 动手：给卡片加 NEW 角标</h2>
+      <p>新建 <code>zaoshen/D13/</code>，把 D12 的 <code>card.html</code> 和 <code>style.css</code> 复制进去，然后一步一步改。<strong>代码自己敲，每敲完一步就刷新看效果。</strong></p>
+
+      <div class="code-block">
+        <div class="code-head"><span>shell</span><button class="copy-btn" type="button">复制</button></div>
+        <pre><code># 在 zaoshen 仓库根目录执行
+mkdir D13                    # 新建 D13 文件夹
+cp D12/card.html D13/        # 复制 HTML 过来
+cp D12/style.css D13/        # 复制 CSS 过来</code></pre>
+      </div>
+
+      <h3>第 1 步 · HTML 加角标元素</h3>
+      <div class="code-block">
+        <div class="code-head"><span>html</span><button class="copy-btn" type="button">复制</button></div>
+        <pre><code><!-- 卡片容器 -->
+<div class="card">
+  <!-- 右上角 NEW 角标：绝对定位到卡片右上角 -->
+  <span class="badge">NEW</span>
+  <!-- 卡片标题 -->
+  <h2>项目一</h2>
+  <!-- 卡片描述 -->
+  <p>这是第一个项目的描述</p>
+</div></code></pre>
+      </div>
+
+      <h3>第 2 步 · 父元素加定位参照</h3>
+      <p>在 <code>.card</code> 里加一行 <code>position: relative;</code>。这一行是整节课的关键。</p>
+      <div class="code-block">
+        <div class="code-head"><span>css</span><button class="copy-btn" type="button">复制</button></div>
+        <pre><code>/* 单张卡片：等分剩余空间 + 最小宽度 200px（换行开关） */
+.card {
+  background-color: #ffffff;  /* 卡片底色 */
+  border: 1px solid #e0e0e0;  /* 卡片边框 */
+  border-radius: 8px;         /* 圆角 */
+  padding: 20px;              /* 内边距 */
+  flex: 1;                    /* 平分剩余空间，让卡片等宽 */
+  min-width: 200px;           /* 最小宽度，窄屏时触发换行 */
+  position: relative;         /* 关键！让子元素 .badge 相对本卡片定位 */
+}</code></pre>
+      </div>
+
+      <h3>第 3 步 · 写角标样式</h3>
+      <div class="code-block">
+        <div class="code-head"><span>css</span><button class="copy-btn" type="button">复制</button></div>
+        <pre><code>/* 右上角 NEW 角标：绝对定位到卡片右上角 */
+.badge {
+  position: absolute;         /* 脱离文档流，相对 .card 定位 */
+  top: 0;                     /* 贴住卡片上边 */
+  right: 0;                   /* 贴住卡片右边 */
+  background-color: #b45309;  /* 角标底色（赭石） */
+  color: #ffffff;             /* 角标文字白色 */
+  font-size: 12px;            /* 角标字号 */
+  font-weight: 700;           /* 加粗，让 NEW 更醒目 */
+  padding: 2px 8px;           /* 上下 2px，左右 8px */
+  border-radius: 0 8px 0 8px; /* 只圆右上和左下，贴合卡片圆角 */
+  letter-spacing: 0.5px;      /* 字间距，让 NEW 更舒展 */
+}</code></pre>
+      </div>
+
+      <h3>第 4 步 · 验收</h3>
+      <ul class="checklist">
+        <li><label><input type="checkbox"><span>刷新页面，每张卡片右上角都有一个「NEW」角标</span></label></li>
+        <li><label><input type="checkbox"><span>角标紧贴卡片右上角，没有跑到页面右上角</span></label></li>
+        <li><label><input type="checkbox"><span>角标的右上角是圆的，和卡片圆角贴合</span></label></li>
+        <li><label><input type="checkbox"><span>把窗口拖窄，卡片换行后角标仍跟着自己的卡片</span></label></li>
+        <li><label><input type="checkbox"><span>F12 → 选中 .badge → Styles 里 position: absolute 没有删除线</span></label></li>
+      </ul>
+
+      <div class="callout warn">
+        <span class="label">卡住了？按这个顺序排查</span>
+        <p><strong>角标跑到页面右上角</strong> → <code>.card</code> 忘了写 <code>position: relative</code>。</p>
+        <p><strong>角标把标题挤下去了</strong> → <code>.badge</code> 的 <code>position: absolute</code> 没生效，检查拼写。</p>
+        <p><strong>角标盖住卡片边框</strong> → 正常，<code>top: 0</code> 就是贴边。想往里缩改成 <code>top: 8px; right: 8px</code>。</p>
+        <p><strong>圆角方向不对</strong> → <code>border-radius</code> 的顺序是「左上 右上 右下 左下」。</p>
+      </div>
+
+      <!-- ---------- 五 ---------- -->
+      <h2 id="back-to-top">五 · 动手：悬浮「回到顶部」按钮</h2>
+      <p>这是 <code>position: fixed</code> 的经典用法：按钮永远钉在屏幕右下角，滚动时不动。</p>
+
+      <div class="code-block">
+        <div class="code-head"><span>html</span><button class="copy-btn" type="button">复制</button></div>
+        <pre><code><!-- 悬浮回到顶部按钮：fixed 定位，永远钉在屏幕右下角 -->
+<a href="#" class="back-top">↑</a></code></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-head"><span>css</span><button class="copy-btn" type="button">复制</button></div>
+        <pre><code>/* 悬浮回到顶部按钮：固定在屏幕右下角 */
+.back-top {
+  position: fixed;            /* 相对浏览器窗口定位，滚动时不动 */
+  right: 24px;                /* 离窗口右边 24px */
+  bottom: 24px;               /* 离窗口下边 24px */
+  width: 48px;                /* 按钮宽度 */
+  height: 48px;               /* 按钮高度 */
+  background-color: #1a1a1a;  /* 按钮底色（墨色） */
+  color: #ffffff;             /* 箭头颜色白色 */
+  border-radius: 50%;         /* 50% = 正圆 */
+  display: flex;              /* 关键：a 默认 inline，宽高会失效 */
+  align-items: center;        /* 垂直居中 */
+  justify-content: center;    /* 水平居中 */
+  font-size: 20px;            /* 箭头字号 */
+  text-decoration: none;      /* 去掉链接下划线 */
+  z-index: 100;               /* 保证盖在其他内容上面 */
+}</code></pre>
+      </div>
+
+      <ul class="checklist">
+        <li><label><input type="checkbox"><span>页面右下角出现一个圆形按钮，里面是 ↑</span></label></li>
+        <li><label><input type="checkbox"><span>滚动页面时按钮位置不动</span></label></li>
+        <li><label><input type="checkbox"><span>点按钮，页面回到顶部</span></label></li>
+        <li><label><input type="checkbox"><span>F12 选中按钮，能看到 position: fixed</span></label></li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="label">fixed 与 absolute 一句话区分</span>
+        <p><code>absolute</code> 相对<strong>已定位的祖先</strong>；<code>fixed</code> 相对<strong>浏览器窗口</strong>，跟祖先没关系。</p>
+        <p>所以「回到顶部」用 <code>fixed</code>，「卡片角标」用 <code>absolute</code>。</p>
+      </div>
+
+      <!-- ---------- 六 · 练习题 ---------- -->
+      <section class="practice" id="practice">
+        <div class="practice-head">
+          <div>
+            <h2>六 · 练习题</h2>
+            <p>不许翻代码、不许翻笔记。答错的地方就是明天开头要复习的地方。</p>
+          </div>
+          <div class="score" id="score">得分 <b>0</b> / 8</div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text"><code>position: absolute</code> 相对谁定位？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>永远相对浏览器窗口</button>
+            <button class="opt" data-correct="true" data-why="往上找第一个 position 不是 static 的祖先；找不到就相对页面。"><span class="opt-key"><span>B</span></span>最近的「已定位」祖先元素</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>永远相对直接父元素</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>永远相对 body</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text"><code>relative</code> 和 <code>absolute</code> 最大的区别是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>relative 不占位，absolute 占位</button>
+            <button class="opt" data-correct="true" data-why="relative 只是视觉上挪动，原来的坑还留着；absolute 脱离文档流，后面的元素会顶上来。"><span class="opt-key"><span>B</span></span>relative 保留原位置，absolute 不保留</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>relative 只能左右移动</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>没区别，只是名字不同</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">写了 <code>z-index: 999</code> 却没生效，最可能的原因是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>z-index 的值必须大于 1000</button>
+            <button class="opt" data-correct="true" data-why="static 状态下 z-index 被忽略，这是最高频的原因。"><span class="opt-key"><span>B</span></span>元素没写 position</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>z-index 只能写在父元素上</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>必须同时写 !important</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">做「吸顶导航栏」，滚动到顶部后一直贴在窗口顶部，用哪个值？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>relative</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>absolute</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>fixed</button>
+            <button class="opt" data-correct="true" data-why="sticky 在滚动到阈值前正常占位，之后钉住；fixed 会一开始就脱离文档流。"><span class="opt-key"><span>D</span></span>sticky</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">父元素写了 <code>transform: scale(1)</code>，子元素 <code>position: fixed</code> 会怎样？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>完全正常，还是相对浏览器窗口</button>
+            <button class="opt" data-correct="true" data-why="transform 创建了层叠上下文，fixed 的包含块变成这个父元素。"><span class="opt-key"><span>B</span></span>失效，变成相对那个父元素定位</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>自动变成 absolute</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>元素直接消失</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text"><code>a</code> 标签默认 <code>display: inline</code>。如果 <code>.back-top</code> 不写 <code>display: flex</code>，会怎样？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>没影响，圆圈照样 48×48</button>
+            <button class="opt" data-correct="true" data-why="inline 元素不认 width / height，align-items 和 justify-content 也失效。"><span class="opt-key"><span>B</span></span>宽高失效，居中属性也全部失效</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>只有 align-items 失效</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>浏览器自动补上 display: flex</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">07</span><span class="q-text">角标飞到了<strong>整个页面</strong>的右上角，而不是卡片右上角。原因是什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="卡片还是 static，浏览器一路往上找不到已定位祖先，最后相对页面定位。"><span class="opt-key"><span>A</span></span>卡片忘了写 position: relative</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>角标的 z-index 太小</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>卡片写了 display: flex</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>top / right 写成了 0</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">08</span><span class="q-text">想让角标<strong>跑到卡片背景下面</strong>（被卡片底色盖住），应该怎么写？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>z-index: 999</button>
+            <button class="opt" data-correct="true" data-why="负值让角标沉到父元素背景之下，前提是父元素有背景色。"><span class="opt-key"><span>B</span></span>z-index: -1</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>opacity: 0</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>display: none</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <button class="btn btn-ghost" id="resetPractice" type="button">重新做一遍</button>
+          <span class="note" id="scoreMsg"></span>
+        </div>
+      </section>
+
+      <!-- ---------- 七 · 口述题 ---------- -->
+      <h2 id="speak">七 · 口述题</h2>
+      <div class="speak">
+        <h3>不看代码，用自己的话讲 30 秒</h3>
+        <p><strong>题目：</strong>「<code>absolute</code> 相对谁定位？为什么做角标时父元素一定要写 <code>relative</code>？」</p>
+        <details>
+          <summary>讲完了，对照参考答案</summary>
+          <div class="answer">
+            <code>absolute</code> 相对<strong>最近的已定位祖先</strong>定位 —— 往上找，第一个 <code>position</code> 不是 <code>static</code> 的祖先。
+            如果一路找到 <code>html</code> 都没有，就相对整个页面定位。<br><br>
+            做角标时，我们希望角标贴在<strong>卡片</strong>的右上角，所以必须让卡片成为「已定位祖先」，也就是给 <code>.card</code> 写 <code>position: relative</code>。
+            不写的话，卡片还是 <code>static</code>，浏览器一路往上找，最后相对页面定位，角标就飞到页面右上角去了。
+          </div>
+        </details>
+        <p style="margin-top:12px;color:var(--text-3);font-size:14px;">讲不出来 → 回到第一节 1.1 重看，然后合上页面再讲一遍。讲不清 = 没学会，明天开头还会问。</p>
+      </div>
+
+      <!-- ---------- 八 ---------- -->
+      <h2 id="ship">八 · 提交与知识卡片</h2>
+      <div class="code-block">
+        <div class="code-head"><span>shell</span><button class="copy-btn" type="button">复制</button></div>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add D13/                    # 把 D13 文件夹加入暂存区
+git commit -m "D13: 定位（absolute 角标 + fixed 回到顶部）"   # 提交并写说明
+git push                        # 推到 GitHub</code></pre>
+      </div>
+      <p>验收：打开 <code>github.com/quee446/zaoshen</code>，能看到 <code>D13/card.html</code> 和 <code>D13/style.css</code>。</p>
+
+      <div class="code-block">
+        <div class="code-head"><span>markdown · 抄进笔记</span><button class="copy-btn" type="button">复制</button></div>
+        <pre><code>## D13 · 定位 position
+- static（默认，不定位）/ relative（占位，相对自己）/ absolute（不占位，相对已定位祖先）
+- fixed（不占位，相对浏览器窗口）/ sticky（滚动到阈值后钉住）
+- 方向属性：top / right / bottom / left
+- 角标配方：父元素 position: relative + 子元素 position: absolute; top:0; right:0
+- 回到顶部配方：position: fixed; right:24px; bottom:24px
+- z-index 只对已定位元素生效；数值越大越靠上
+- z-index 不生效三大原因：没写 position / 父元素有 opacity、transform、filter / 数值相同
+- 坑：absolute 认「已定位」的祖先，不认「亲爹」</code></pre>
+      </div>
+
+      <div class="callout tip">
+        <span class="label">加练（有余力再做，15 分钟）</span>
+        <p>① 把 <code>.badge</code> 的 <code>top: 0; right: 0</code> 改成 <code>top: 8px; right: 8px</code>，看角标往里缩。</p>
+        <p>② 删掉 <code>.card</code> 的 <code>position: relative</code>，看角标飞走 → 再改回来。</p>
+        <p>③ 给 <code>.badge</code> 加 <code>z-index: -1</code>，看角标沉到卡片背景下面。</p>
+        <p>④ 把 <code>.back-top</code> 的 <code>fixed</code> 改成 <code>absolute</code>，滚动页面，看按钮跟着页面滚走。</p>
+      </div>
+
+    </div><!-- /.prose -->
+
+    <!-- 上一课 / 下一课 -->
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d12.html">
+        <span class="dir">← 上一课</span>
+        <span class="name">D12 · Flexbox 布局</span>
+      </a>
+      <a class="next" href="d14.html">
+        <span class="dir">下一课 →</span>
+        <span class="name">D14 · 复盘 + 补进度</span>
+      </a>
+    </nav>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · D13 · 定位 position</span>
+    <a href="../index.html#catalog">返回课程目录</a>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

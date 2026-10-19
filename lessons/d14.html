@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D14 · 第二周复盘与补进度：6 天任务逐条打勾、补进度的方法、间隔重复排期表。">
+<title>D14 · 复盘 + 补进度 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d14.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#week2-review">第二周复盘清单</a></li>
+      <li><a href="#catch-up">补进度怎么补</a></li>
+      <li><a href="#schedule">间隔重复排期表</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 2 周 · CSS 基础</span>
+        <span class="crumb-sep">/</span>
+        <span>D14</span>
+      </div>
+      <h1>复盘 + 补进度</h1>
+      <p class="lede">
+        第二周从 CSS 引入一路走到定位，一共 6 天。
+        今天不学新东西，只做两件事：把漏洞找出来，把进度补齐。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 90 分钟</span>
+        <span class="fact">📄 产出周复盘笔记</span>
+        <span class="fact">🎯 难度 ★☆☆</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="week2-review">一、第二周复盘清单</h2>
+      <p>
+        逐条打勾。打不上勾的，就是明天要补的。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>能力</th><th>对应</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>能说出三种选择器，以及 id 100 / class 10 / 标签 1</td><td>D8</td></tr>
+            <tr><td>2</td><td>能画出盒模型四层，并解释 box-sizing 为什么必须写</td><td>D9</td></tr>
+            <tr><td>3</td><td>能写出卡片配方（宽 + padding + 背景 + 圆角 + 阴影）</td><td>D9 / D10</td></tr>
+            <tr><td>4</td><td>能说清 text-align 和 margin auto 的区别</td><td>D10</td></tr>
+            <tr><td>5</td><td>能解释 flex 主轴交叉轴，justify 跟主轴、align 跟交叉轴</td><td>D11 / D12</td></tr>
+            <tr><td>6</td><td>能说出 position 五种值，能写出角标配方</td><td>D13</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <strong>复盘三问：</strong>
+        ① 这周我真正会了什么？② 我卡在哪一步？③ 下周具体怎么补？
+        第三问必须具体到「明天做什么」，不能写「多练习」。
+      </div>
+
+      <h2 id="catch-up">二、补进度怎么补</h2>
+      <p>
+        落下的天数<strong>不要一次性全补</strong>。一次性补三天，等于三天都在赶工，
+        什么都没记住，还会把当天的节奏也拖垮。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>做法</th><th>结果</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>❌ 一天补三天</td><td>赶工、记不住、第二天全忘</td></tr>
+            <tr><td>✅ 每天补一天的量</td><td>节奏稳定，当天新课照常上</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <strong>补的时候只做两件事：写代码 + 做自测题。</strong>
+        不要重看整篇讲解。讲解你已经看过一遍了，重看是低效的重复；
+        直接动手写、直接做题，才能暴露真正的漏洞。
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 补进度的一天怎么安排（约 60 分钟）
+# 1. 打开那天的小节标题，扫一眼（5 分钟）
+# 2. 直接照着配方写代码，不看讲解（25 分钟）
+# 3. 做那天的自测题，错的回查（20 分钟）
+# 4. 记录卡点，写进复盘（10 分钟）</code></pre>
+      </div>
+
+      <h2 id="schedule">三、间隔重复排期表</h2>
+      <p>
+        遗忘是默认发生的。对抗遗忘最有效的办法不是重看，而是<strong>在快要忘的时候做一次检索</strong>。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>时间</th><th>复习内容</th><th>时长</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>今天</td><td>D8、D9</td><td>10 分钟</td></tr>
+            <tr><td>明天</td><td>D10、D11</td><td>10 分钟</td></tr>
+            <tr><td>后天</td><td>D12、D13</td><td>10 分钟</td></tr>
+            <tr><td>第 4 天</td><td>D8–D13 全部自测题</td><td>20 分钟</td></tr>
+            <tr><td>第 7 天</td><td>D8–D13 全部自测题</td><td>20 分钟</td></tr>
+            <tr><td>第 15 天</td><td>D8–D13 全部自测题</td><td>20 分钟</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <strong>只做自测题，不做新题。</strong>
+        复习的目的是「提取」，不是「学新东西」。做过的题再做一遍，
+        能秒答的划掉，答不上的留下来重点看。
+      </div>
+
+      <h2 id="mindmap">四、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <h3>复盘 + 补进度</h3>
+          <p>3 个分支：复盘清单 → 补进度 → 间隔重复</p>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">复盘与补进度思维导图</title>
+            <desc id="mmDesc">中心是复盘与补进度，三个分支分别是第二周复盘清单、补进度的方法、间隔重复排期。</desc>
+
+            <path class="mm-link" d="M300 235 C340 235 340 110 380 110" />
+            <path class="mm-link" d="M300 235 C340 235 340 235 380 235" />
+            <path class="mm-link" d="M300 235 C340 235 340 360 380 360" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">复盘 + 补进度</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="86" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="115" text-anchor="middle">复盘清单</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="74" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="102">6 条能力逐条打勾</text>
+              <text class="mm-text leaf" x="590" y="126">会什么 / 卡在哪 / 怎么补</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="211" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="240" text-anchor="middle">补进度</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="199" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="227">每天只补一天的量</text>
+              <text class="mm-text leaf" x="590" y="251">只写代码 + 做自测</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="336" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="365" text-anchor="middle">间隔重复</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="324" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="352">第 2 / 4 / 7 / 15 天</text>
+              <text class="mm-text leaf" x="590" y="376">只做旧题，不做新题</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">五、练习题</h2>
+      <section class="practice">
+        <div class="practice-head">
+          <div>
+            <h3>第二周复盘自测 · 共 6 题</h3>
+            <p>覆盖 D8–D13 全部核心考点。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">class 和 id 的权重分别是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>class 100 / id 10</button>
+            <button class="opt" data-correct="true" data-why="id 100，class 10，标签 1。"><span class="opt-key"><span>B</span></span>class 10 / id 100</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>都是 10</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>都是 100</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">盒模型从里到外的顺序是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="content → padding → border → margin。"><span class="opt-key"><span>A</span></span>content → padding → border → margin</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>margin → border → padding → content</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>padding → border → content → margin</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>border → padding → margin → content</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">让盒子本身水平居中，用哪个？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>text-align: center</button>
+            <button class="opt" data-correct="true" data-why="margin: 0 auto 让盒子本身居中，前提是有明确宽度。"><span class="opt-key"><span>B</span></span>margin: 0 auto</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>align-items: center</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>justify-content: center</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">flex-direction: column 时，align-items 管哪个方向？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>上下</button>
+            <button class="opt" data-correct="true" data-why="align 永远跟交叉轴走，column 时交叉轴变成水平，所以管左右。"><span class="opt-key"><span>B</span></span>左右</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>失效</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>对角线</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">做右上角角标，父元素和子元素分别写什么？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="父 relative 当参照物，子 absolute + top 0 + right 0 贴右上角。"><span class="opt-key"><span>A</span></span>父 relative，子 absolute + top 0 + right 0</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>父 absolute，子 relative</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>父 fixed，子 static</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>父 sticky，子 fixed</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">补进度最有效的做法是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>一天把落下的全补完</button>
+            <button class="opt" data-correct="true" data-why="每天只补一天的量，只写代码 + 做自测，节奏稳定才记得住。"><span class="opt-key"><span>B</span></span>每天补一天的量，只写代码 + 做自测</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>把讲解重看三遍</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>跳过不补，直接学新的</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">六、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">用 60 秒向面试官介绍：「这两周你学了什么，能做出什么？」</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              第一周我学了 HTML 和 Git，能写出语义化的页面骨架，代码用 Git 管理并推到 GitHub。
+              第二周学 CSS：选择器和权重、盒模型、文本背景边框、Flex 布局、position 定位。
+              现在我能独立做出一个响应式的个人主页，包含横向导航栏、等宽卡片列表、
+              悬浮角标和回到顶部按钮，窗口缩窄时卡片会自动换行。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">七、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D14: 第二周复盘 + 间隔重复排期"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 6 条能力逐条打勾，标出没打上的</label></li>
+          <li><label><input type="checkbox"> 写了一份复盘（三问都答了）</label></li>
+          <li><label><input type="checkbox"> 在日历上标了第 2 / 4 / 7 / 15 天的复习</label></li>
+          <li><label><input type="checkbox"> 复盘笔记已 commit 并 push</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d13.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D13 · 定位 position</span>
+      </a>
+      <a class="next" href="d15.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D15 · 过渡与动画</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D14 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

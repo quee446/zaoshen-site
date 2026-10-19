@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090b">
+<meta name="description" content="D12 · Flexbox 布局：主轴与交叉轴、flex: 1 三件套、flex-wrap 响应式换行、gap 与 justify-content 常用值。">
+<title>D12 · Flexbox 布局 | 造神计划</title>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip-link" href="#content">跳到正文</a>
+<div class="read-progress" id="readProgress"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Z</span>
+      <span class="brand-text">造神计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="../index.html">首页</a>
+      <a href="../index.html#catalog">课程目录</a>
+      <a href="d12.html" aria-current="page">当前课程</a>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换深浅色">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="lesson-shell">
+  <aside class="toc" aria-label="本课目录">
+    <div class="toc-title">本课目录</div>
+    <ol>
+      <li><a href="#main-cross-axis">主轴与交叉轴</a></li>
+      <li><a href="#flex-1">flex: 1 三件套</a></li>
+      <li><a href="#wrap">flex-wrap 响应式换行</a></li>
+      <li><a href="#gap">gap 与 margin 的区别</a></li>
+      <li><a href="#justify-values">justify-content 常用值</a></li>
+      <li><a href="#mindmap">思维导图</a></li>
+      <li><a href="#practice">练习题</a></li>
+      <li><a href="#speak">口述题</a></li>
+      <li><a href="#ship">今日提交</a></li>
+    </ol>
+  </aside>
+
+  <main class="lesson-main-col" id="content">
+    <div class="lesson-hero">
+      <div class="crumb">
+        <span>第 2 周 · CSS 基础</span>
+        <span class="crumb-sep">/</span>
+        <span>D12</span>
+      </div>
+      <h1>Flexbox 布局</h1>
+      <p class="lede">
+        昨天学会了横排，今天学会「等分 + 换行」。
+        一排等宽卡片，窗口缩窄时自动从 3 张变 2 张再变 1 张。
+      </p>
+      <div class="lesson-facts">
+        <span class="fact">⏱ 约 120 分钟</span>
+        <span class="fact">📄 产出 card.html</span>
+        <span class="fact">🎯 难度 ★★★</span>
+      </div>
+    </div>
+
+    <div class="prose">
+
+      <h2 id="main-cross-axis">一、主轴与交叉轴</h2>
+      <p>
+        Flex 有两个轴。<strong>justify 永远跟着主轴走，align 永远跟着交叉轴走。</strong>
+        这句话是整节课的钥匙。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>flex-direction</th><th>主轴</th><th>交叉轴</th><th>justify-content 管</th><th>align-items 管</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>row</code>（默认）</td><td>水平</td><td>垂直</td><td>左右</td><td>上下</td></tr>
+            <tr><td><code>column</code></td><td>垂直</td><td>水平</td><td>上下</td><td>左右</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <strong>写了 flex-direction: column 之后，两个属性的作用方向会翻转。</strong>
+        这是面试高频陷阱：很多人以为 justify-content 永远管左右，其实它管的是主轴。
+      </div>
+
+      <h2 id="flex-1">二、flex: 1 三件套</h2>
+      <p>
+        <code>flex: 1</code> 是一个简写，展开是三个属性：
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>属性</th><th>值</th><th>意思</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>flex-grow</code></td><td>1</td><td>剩余空间我全要</td></tr>
+            <tr><td><code>flex-shrink</code></td><td>1</td><td>空间不够就一起缩</td></tr>
+            <tr><td><code>flex-basis</code></td><td>0%</td><td>起始宽度从 0 开始算</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>.cards {
+  display: flex;
+  gap: 16px;
+}
+
+.card {
+  flex: 1;        /* 三张卡片自动等分 */
+  min-width: 200px; /* 配合换行用，见下一节 */
+}</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>一句话记住：</strong>
+        <code>flex: 1</code> = 「剩余空间我全要，不够就一起缩」。
+        三张卡片都写 flex: 1，就自动等宽。
+      </div>
+
+      <h2 id="wrap">三、flex-wrap 与响应式换行</h2>
+      <p>
+        默认是 <code>nowrap</code>，放不下就硬挤，子元素会被压扁。
+        写 <code>flex-wrap: wrap</code> 之后，放不下就换到下一行。
+      </p>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>.cards {
+  display: flex;
+  flex-wrap: wrap;   /* 换行开关 */
+  gap: 16px;
+}
+
+.card {
+  flex: 1;           /* 等分剩余空间 */
+  min-width: 200px;  /* 最小宽度，低于这个就换行 */
+}</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>窗口宽度</th><th>效果</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>宽屏（> 700px）</td><td>3 张并排</td></tr>
+            <tr><td>中屏（400 ~ 700px）</td><td>2 张一行</td></tr>
+            <tr><td>窄屏（< 400px）</td><td>1 张一行</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout tip">
+        <strong>响应式换行三件套，两个主人：</strong>
+        容器写 <code>flex-wrap: wrap</code> 和 <code>gap</code>；
+        子元素写 <code>flex: 1</code> 和 <code>min-width</code>。
+        一个都不能少。
+      </div>
+
+      <h2 id="gap">四、gap 与 margin 的区别</h2>
+      <p>
+        做间距，<code>gap</code> 比 <code>margin</code> 干净得多。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>方式</th><th>写在哪</th><th>最后一行有尾巴吗</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>gap: 16px</code></td><td>容器</td><td>❌ 没有，只加在元素之间</td></tr>
+            <tr><td><code>margin-right: 16px</code></td><td>每个子元素</td><td>✅ 有，最后一个右边也空着</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code>/* 用 gap：一行搞定，没有尾巴 */
+.cards { display: flex; gap: 16px; }
+
+/* 用 margin：还得单独去掉最后一个 */
+.card { margin-right: 16px; }
+.card:last-child { margin-right: 0; }</code></pre>
+      </div>
+
+      <h2 id="justify-values">五、justify-content 常用值</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>值</th><th>效果</th><th>典型场景</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>flex-start</code></td><td>靠左（默认）</td><td>普通列表</td></tr>
+            <tr><td><code>flex-end</code></td><td>靠右</td><td>按钮组</td></tr>
+            <tr><td><code>center</code></td><td>整体居中</td><td>居中内容</td></tr>
+            <tr><td><code>space-between</code></td><td>两端顶住，中间等分</td><td>✅ 导航栏最常用</td></tr>
+            <tr><td><code>space-around</code></td><td>每个元素两边都有空隙</td><td>均匀分布的图标</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <strong>space-between 和 space-around 的区别：</strong>
+        between 是「两端贴边，中间分」；around 是「每个元素左右都有空隙」。
+        导航栏要两端贴边，所以用 between。
+      </div>
+
+      <h2 id="mindmap">六、思维导图</h2>
+      <div class="mindmap">
+        <div class="mindmap-head">
+          <h3>Flexbox 布局</h3>
+          <p>5 个分支：双轴 → flex:1 → 换行 → gap → 对齐值</p>
+        </div>
+        <div class="mindmap-scroll">
+          <svg viewBox="0 0 900 470" role="img" aria-labelledby="mmTitle mmDesc">
+            <title id="mmTitle">Flexbox 布局思维导图</title>
+            <desc id="mmDesc">中心是 Flexbox 布局，五个分支分别是主轴与交叉轴、flex 1 三件套、flex-wrap 换行、gap 与 margin、justify-content 常用值。</desc>
+
+            <path class="mm-link" d="M300 235 C340 235 340 60 380 60" />
+            <path class="mm-link" d="M300 235 C340 235 340 145 380 145" />
+            <path class="mm-link" d="M300 235 C340 235 340 230 380 230" />
+            <path class="mm-link" d="M300 235 C340 235 340 315 380 315" />
+            <path class="mm-link" d="M300 235 C340 235 340 400 380 400" />
+
+            <g class="mm-node">
+              <rect x="120" y="205" width="180" height="60" rx="14" fill="var(--accent)" />
+              <text class="mm-text root" x="210" y="241" text-anchor="middle">Flexbox 布局</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="36" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="65" text-anchor="middle">主轴 / 交叉轴</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="24" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="52">justify 跟主轴走</text>
+              <text class="mm-text leaf" x="590" y="76">align 跟交叉轴走</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="121" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="150" text-anchor="middle">flex: 1 三件套</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="109" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="137">grow 1 / shrink 1</text>
+              <text class="mm-text leaf" x="590" y="161">basis 0%</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="206" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="235" text-anchor="middle">flex-wrap</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="194" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="222">wrap 换行 + min-width</text>
+              <text class="mm-text leaf" x="590" y="246">3 张 → 2 张 → 1 张</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="291" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="320" text-anchor="middle">gap vs margin</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="279" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="307">gap 写在容器，无尾巴</text>
+              <text class="mm-text leaf" x="590" y="331">margin 要处理 last-child</text>
+            </g>
+
+            <g class="mm-node">
+              <rect x="380" y="376" width="150" height="48" rx="10" fill="var(--bg-elev-2)" />
+              <text class="mm-text branch" x="455" y="405" text-anchor="middle">justify-content</text>
+            </g>
+            <g class="mm-node">
+              <rect x="570" y="364" width="300" height="72" rx="10" fill="var(--bg-elev)" />
+              <text class="mm-text leaf" x="590" y="392">space-between 导航栏</text>
+              <text class="mm-text leaf" x="590" y="416">center / flex-start / flex-end</text>
+            </g>
+          </svg>
+        </div>
+        <div class="mindmap-legend">
+          <span><i class="dot accent"></i>中心主题</span>
+          <span><i class="dot branch"></i>一级分支</span>
+          <span><i class="dot leaf"></i>要点</span>
+        </div>
+      </div>
+
+      <h2 id="practice">七、练习题</h2>
+      <section class="practice">
+        <div class="practice-head">
+          <div>
+            <h3>Flexbox 布局自测 · 共 6 题</h3>
+            <p>覆盖双轴、flex: 1、换行、gap、对齐值。</p>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">01</span><span class="q-text">flex: 1 展开后是哪三个属性？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="true" data-why="flex: 1 = flex-grow: 1 + flex-shrink: 1 + flex-basis: 0%。"><span class="opt-key"><span>A</span></span>grow 1 / shrink 1 / basis 0%</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>grow 0 / shrink 0 / basis auto</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>width 1 / height 1 / margin 1</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>justify 1 / align 1 / gap 1</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">02</span><span class="q-text">写了 flex-direction: column 之后，justify-content 管哪个方向？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>还是左右</button>
+            <button class="opt" data-correct="true" data-why="justify-content 永远跟着主轴走，column 时主轴变成垂直，所以它管上下。"><span class="opt-key"><span>B</span></span>变成上下</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>失效</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>管对角线</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">03</span><span class="q-text">子元素被挤扁了，应该加哪个属性？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>flex-direction: column</button>
+            <button class="opt" data-correct="true" data-why="flex-wrap: wrap 让放不下的元素换到下一行，不再硬挤。"><span class="opt-key"><span>B</span></span>flex-wrap: wrap</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>align-items: stretch</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>overflow: hidden</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">04</span><span class="q-text">gap 和 margin-right 相比，最大的优势是？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>性能更好</button>
+            <button class="opt" data-correct="true" data-why="gap 只加在元素之间，最后一行不会多出尾巴，不用写 :last-child。"><span class="opt-key"><span>B</span></span>最后一行不会多出尾巴</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>能设颜色</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>能设圆角</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">05</span><span class="q-text">导航栏 logo 靠左、链接靠右，justify-content 用哪个值？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>center</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>B</span></span>space-around</button>
+            <button class="opt" data-correct="true" data-why="space-between 让第一个贴左、最后一个贴右，中间等分。"><span class="opt-key"><span>C</span></span>space-between</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>flex-end</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="q">
+          <div class="q-head"><span class="q-no">06</span><span class="q-text">响应式换行三件套里，min-width 应该写在谁身上？</span></div>
+          <div class="opts">
+            <button class="opt" data-correct="false"><span class="opt-key"><span>A</span></span>容器</button>
+            <button class="opt" data-correct="true" data-why="min-width 写在子元素上，规定它最小多宽，低于这个就换行。"><span class="opt-key"><span>B</span></span>子元素</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>C</span></span>body</button>
+            <button class="opt" data-correct="false"><span class="opt-key"><span>D</span></span>html</button>
+          </div>
+          <div class="fb"></div>
+        </div>
+
+        <div class="practice-foot">
+          <span class="score" id="score">得分 <b>0</b> / 6</span>
+          <span class="score-msg" id="scoreMsg"></span>
+          <button class="btn-ghost" id="resetPractice" type="button">重做</button>
+        </div>
+      </section>
+
+      <h2 id="speak">八、口述题</h2>
+      <div class="speak">
+        <p class="speak-q">用 60 秒解释：「flex: 1 是什么意思？三张卡片等宽是怎么实现的？」</p>
+        <details>
+          <summary>看参考答案</summary>
+          <div class="answer">
+            <p>
+              flex: 1 是 flex-grow: 1、flex-shrink: 1、flex-basis: 0% 的简写。
+              意思是起始宽度从 0 算，剩余空间我全要，空间不够就一起缩。
+              三张卡片都写 flex: 1，它们就平分容器的剩余空间，所以自动等宽。
+              再配合 min-width 和 flex-wrap: wrap，窗口变窄时还能自动换行。
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <h2 id="ship">九、今日提交</h2>
+      <div class="code-block">
+        <button class="copy-btn" type="button">复制</button>
+        <pre><code># 在 zaoshen 仓库根目录执行
+git add .
+git commit -m "D12: Flexbox 等宽卡片与响应式换行"
+git push</code></pre>
+      </div>
+      <div class="callout tip">
+        <strong>今天的验收清单：</strong>
+        <ul class="checklist">
+          <li><label><input type="checkbox"> 三张卡片等宽并排</label></li>
+          <li><label><input type="checkbox"> 缩窄窗口时卡片自动换行</label></li>
+          <li><label><input type="checkbox"> 用 gap 做间距，没有用 margin-right</label></li>
+          <li><label><input type="checkbox"> 能说出 justify 跟主轴、align 跟交叉轴</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="pager" aria-label="课程翻页">
+      <a href="d11.html">
+        <span class="pager-label">上一课</span>
+        <span class="pager-title">D11 · 显示模式与 Flex 入门</span>
+      </a>
+      <a class="next" href="d13.html">
+        <span class="pager-label">下一课</span>
+        <span class="pager-title">D13 · 定位 position</span>
+      </a>
+    </nav>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>造神计划 · 前端全栈 180 天</span>
+    <span>D12 / 180</span>
+  </div>
+</footer>
+
+<script src="../assets/data.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>
