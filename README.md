@@ -163,6 +163,95 @@ git subtree push --prefix site https://github.com/<你的用户名>/zaoshen-site
 - **改了内容线上没变** → 静态资源有长缓存，强制刷新（`Cmd+Shift+R`）或换个无痕窗口。
 - **想加密码/只给自己看** → Netlify 有 Password protection（付费），免费方案可考虑 Vercel 的 Deployment Protection。
 
+### 上线后：你的「作品集」在哪
+
+GitHub 上有三个不同的地址，作用完全不同，别搞混：
+
+| 地址 | 是什么 | 给谁看 |
+|---|---|---|
+| `https://github.com/quee446` | **你的主页**（头像 + 仓库列表） | 面试官点进来看你有哪些项目 |
+| `https://github.com/quee446/zaoshen-site` | **仓库页**（代码 + README） | 面试官想看你怎么写的 |
+| `https://quee446.github.io/zaoshen-site/` | **线上网站**（真正跑起来的页面） | 面试官直接体验成品 |
+
+**「作品集」= 主页 + 每个仓库的 README + 线上链接，三者一起构成。** 光有代码没有 README，面试官看不出你在做什么；光有链接没有代码，看不出是你写的。
+
+#### 第 1 步：把主页填满（5 分钟，收益最大）
+
+1. 打开 `https://github.com/quee446`，点右上角头像 → **Your profile**
+2. 点 **Edit profile**（右侧按钮）
+3. 填三项：
+   - **Name**：真实姓名或常用昵称（现在为空）
+   - **Bio**：一句话定位，例如 `前端学习中 · 每天一课 · 目标前端实习`
+   - **Website**：填 `https://quee446.github.io/zaoshen-site/`（这一栏最关键，主页会显示成可点的链接）
+4. 点 **Save**
+
+#### 第 2 步：建「个人主页仓库」（让主页有内容）
+
+GitHub 有个隐藏功能：**仓库名和用户名完全一样**（这里是 `quee446`）时，该仓库的 `README.md` 会自动显示在你的主页最上方。
+
+1. 打开 `https://github.com/new`
+2. Repository name 填 **`quee446`**（必须和用户名一模一样）
+3. 勾选 **Public**，勾选 **Add a README file**
+4. 点 **Create repository**
+5. 点 README 右上角铅笔图标，粘贴下面模板，改掉方括号里的内容：
+
+```markdown
+### 你好，我是 [你的名字]
+
+前端全栈学习中，180 天计划进行到第 15 天。
+
+**正在做**
+- [造神计划 · 学习站](https://quee446.github.io/zaoshen-site/) — 15 天课程，含思维导图、练习题、小节级搜索
+- 技术栈：HTML / CSS / Flexbox / 定位 / Git
+
+**联系我**
+- 邮箱：[你的邮箱]
+```
+
+6. 点 **Commit changes**
+
+刷新 `https://github.com/quee446`，主页顶部就会出现这段介绍。
+
+#### 第 3 步：给 `zaoshen-site` 仓库补描述和 README
+
+现在这个仓库的 Description 是空的（API 查过是 `None`），别人在仓库列表里只看到一个光秃秃的名字。
+
+1. 打开 `https://github.com/quee446/zaoshen-site`
+2. 右侧 **About** 那一栏，点齿轮图标 ⚙️
+3. **Description** 填：`前端学习站 · 15 天课程 · 思维导图 + 练习题 + 小节级搜索`
+4. **Website** 勾选 **Use your GitHub Pages website**（会自动填上线地址）
+5. **Topics** 加几个标签：`html` `css` `flexbox` `learning` `static-site`
+6. 点 **Save changes**
+
+> 注意：仓库里的 `README.md` 就是 [`site/README.md`](README.md) 这份文件（subtree 推送时一起上去了），所以仓库首页已经能看到完整说明，不用另外写。
+
+#### 第 4 步：以后每完成一天课程，怎么变成作品集
+
+```bash
+cd ~/Desktop/脑子
+git add site
+git commit -m "D16 · 新增课程"
+git subtree push --prefix site https://github.com/quee446/zaoshen-site.git main
+```
+
+推送后 30–60 秒，线上自动更新。**提交信息写清楚「D几 + 做了什么」**，面试官翻 commit 记录时能看出你的节奏——连续 15 天有提交，比任何自我介绍都有说服力。
+
+#### 面试时怎么用这个作品集
+
+- **发链接**：简历里写 `https://quee446.github.io/zaoshen-site/`，比写「熟悉 HTML/CSS」有力得多。
+- **讲过程**：面试官问「你做过什么」，打开仓库 → 点 **Commits**，让他看到你从 D1 到 D15 的完整轨迹。
+- **讲技术**：打开线上站，演示搜索「盒模型」→ 精准跳到 `d09.html#four-layers`，说明你做了小节级索引和同义词扩展，这是加分项。
+- **讲取舍**：说明为什么用纯静态、零依赖、零构建——加载快、部署简单、GitHub Pages 免费托管。
+
+#### 常见坑
+
+- **主页仓库名写错**：必须是 `quee446`，写成 `quee446-profile` 或 `profile` 都不会显示在主页顶部。
+- **Website 栏填了但主页没显示**：GitHub 有时缓存，等 1–2 分钟或退出重登。
+- **仓库是 Public 但主页看不到**：确认仓库没被 Archive，且 README 文件名大小写正确（`README.md`）。
+- **想放多个项目**：每个项目一个仓库，各自开 Pages，主页 README 里用列表把链接串起来，这就是最标准的作品集结构。
+
+---
+
 ### 手机上建议做的事
 
 - 加到主屏幕：Safari 点「分享 → 添加到主屏幕」，Chrome 点「⋮ → 添加到主屏幕」，之后像 App 一样全屏打开。
