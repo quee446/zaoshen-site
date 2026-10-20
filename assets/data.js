@@ -15,7 +15,7 @@ window.COURSE_DATA = {
     name: "造神计划",
     tagline: "前端全栈 · 180 天",
     // 当前进行到哪一天（首页「继续学习」卡片用）
-    current: "D13",
+    current: "D15",
   },
 
   weeks: [
@@ -540,7 +540,7 @@ window.COURSE_DATA = {
       title: "定位 position",
       desc: "给卡片加右上角 NEW 角标 + 悬浮回到顶部按钮",
       minutes: 100,
-      status: "current",
+      status: "done",
       href: "lessons/d13.html",
       tags: ["CSS", "定位"],
       keywords:
@@ -587,44 +587,13 @@ window.COURSE_DATA = {
     {
       day: "D14",
       week: "w2",
-      title: "复盘 + 补进度",
-      desc: "本周 6 天任务全部打勾 + 间隔重复排期",
-      minutes: 90,
-      status: "todo",
-      href: "lessons/d14.html",
-      tags: ["复盘"],
-      keywords: "复盘 第二周 补进度 间隔重复 排期",
-      sections: [
-        {
-          id: "week2-review",
-          title: "第二周复盘清单",
-          text: "第二周从 CSS 引入一路走到定位，共 6 天。逐条打勾：能说出三种选择器的权重、能画出盒模型四层、能写出卡片配方、能解释 flex 主轴交叉轴、能说出 position 五种值、能写出角标配方。",
-          terms: "第二周 复盘 清单 打勾 选择器 盒模型 卡片 flex position 角标",
-        },
-        {
-          id: "catch-up",
-          title: "补进度怎么补",
-          text: "落下的天数不要一次性全补，每天只补一天的量，补完当天的新课照常上。补的时候只做「写代码 + 自测题」，不要重看整篇讲解，效率最高。",
-          terms: "补进度 落下 一天的量 新课 写代码 自测题 效率",
-        },
-        {
-          id: "schedule",
-          title: "间隔重复排期表",
-          text: "把 D8–D13 六天内容排进复习日历：今天复习 D8、D9，明天复习 D10、D11，后天复习 D12、D13。每次 10 分钟，只做自测题，不做新题。",
-          terms: "间隔重复 排期表 复习日历 D8 D9 D10 D11 D12 D13 10分钟",
-        },
-      ],
-    },
-    {
-      day: "D15",
-      week: "w3",
       title: "过渡与动画",
       desc: "transition / transform，让卡片有「按下去」的手感",
       minutes: 120,
-      status: "todo",
-      href: "lessons/d15.html",
+      status: "current",
+      href: "lessons/d14.html",
       tags: ["CSS", "动画"],
-      keywords: "transition transform translate scale rotate 过渡 动画 hover",
+      keywords: "transition transform translate scale rotate 过渡 动画 hover 层叠上下文 prefers-reduced-motion",
       sections: [
         {
           id: "transition-four",
