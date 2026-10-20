@@ -15,7 +15,7 @@ window.COURSE_DATA = {
     name: "造神计划",
     tagline: "前端全栈 · 180 天",
     // 当前进行到哪一天（首页「继续学习」卡片用）
-    current: "D15",
+    current: "D14",
   },
 
   weeks: [
